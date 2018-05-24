@@ -51,17 +51,13 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">문의</a>
             </li>
+            <li class="nav-item">
+              <a class="btn  btn btn-sm" href="login.jsp" role="button">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn  btn btn-sm" href="join.jsp" role="button">회원가입</a>
+            </li>
           </ul>
-          <ul class="nav nav-tabs navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li> 
-						<li><a href="join.jsp">회원가입</a></li> 
-					</ul>
-			</ul>
         </div>
       </div>
     </nav>
@@ -100,7 +96,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">At Your Service</h2>
+            <h2 class="section-heading">우리가 제공하는 Service는?</h2>
             <hr class="my-4">
           </div>
         </div>
@@ -110,28 +106,28 @@
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Sturdy Templates</h3>
+              <h3 class="mb-3">계약서 작성</h3>
               <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Ready to Ship</h3>
+              <h3 class="mb-3">계약서 생성</h3>
               <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Up to Date</h3>
+              <h3 class="mb-3">계약서 조회</h3>
               <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Made with Love</h3>
+              <h3 class="mb-3">안전한 보안</h3>
               <p class="text-muted mb-0">You have to make your websites with love these days!</p>
             </div>
           </div>
@@ -238,8 +234,8 @@
 
     <section class="bg-dark text-white">
       <div class="container text-center">
-        <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
-        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+        <h2 class="mb-4">[↑ 기능을 추가한 후에 사진을 넣을 예정..]</h2>
+        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">계약생성하러 가즈아</a>
       </div>
     </section>
 
@@ -249,7 +245,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading">문의해주세요!</h2>
             <hr class="my-4">
-            <p class="mb-5">Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+            <p class="mb-5">어려운 부분이 있나요?? 이곳으로 언제든지 문의해 주세요</p>
           </div>
         </div>
         <div class="row">
