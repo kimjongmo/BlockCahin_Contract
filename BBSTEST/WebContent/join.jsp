@@ -3,18 +3,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<!-- 2. 부트스트랩에서 가져온 css  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Contract Master</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>계약서 웹페이지</title>
 </head>
 <body>
-	<body>
-	<nav class="navbar navbar-default">
-		
-		
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
+		id="mainNav">
+		<a class="navbar-brand js-scroll-trigger" href="index.jsp">
+		<span style="font-sizw: 1.0em; color: orange;">Contract Master</span></a>
 	</nav>
-	<div class="container">
+	
+	
+		
+		
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">
 			<div class="jumbotron" style="padding-top: 20px;">
@@ -47,6 +73,9 @@
 						<input type="text" class="form-control" placeholder="이메일" name="userEmail" maxlength="50">
 					</div>
 					<input type="submit" class="btn btn-primary form-control" value="회원가입">
+					<br>
+					<br>
+					<center><font size="2px" color="orange" face="bold"> 저희 회원이세요? <input type="button" onclick="location.href = 'login.jsp'" value="로그인"></input></font></center>
 				</form>
 			</div>
 		</div>

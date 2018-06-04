@@ -4,7 +4,7 @@
 <html>
 <head>
 
-	<!-- 1. 부트스트랩에서 가져온 css  -->
+	<!-- 2. 부트스트랩에서 가져온 css  -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -32,14 +32,14 @@
 <title>계약서 웹페이지</title>
 </head>
 <body>
-
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
+		id="mainNav">
 		<a class="navbar-brand js-scroll-trigger" href="index.jsp">
 		<span style="font-sizw: 1.0em; color: orange;">Contract Master</span></a>
 	
 		<div class="collapse navbar-collapse" id="navbarResponsive">
           	<ul class="navbar-nav ml-auto">
-          	
+          
 			<li class="nav-item">
               <a class="btn  btn btn-sm" href="board.jsp" role="button">계약서 작성</a>
             </li>
@@ -47,7 +47,8 @@
               <a class="btn  btn btn-sm" href="myPage.jsp" role="button">마이페이지</a>
             </li>
             <li class="nav-item">
-              <a class="btn  btn btn-sm"><%=session.getAttribute("userID")%> 님</a>
+              <font size="2em" color="orange"><%=session.getAttribute("userID")%> 님</font>
+            </li>
             </li>
             <li class="nav-item">
               <a class="btn  btn btn-sm" href="logoutAction.jsp" role="button">로그아웃</a>
@@ -56,6 +57,8 @@
 
 		</div>
 	</nav>
-	
+		<div class="jumbotron" style="padding-top: 20px;">
+		</div>		
+		
 </body>
 </html>

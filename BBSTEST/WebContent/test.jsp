@@ -16,5 +16,11 @@
 	
     UserDAO ud = new UserDAO();
 	ud.insertMember(km); 
-    response.sendRedirect("index.jsp");
+	
+	if(session.getAttribute("nickname") == null)
+	{
+		session.setAttribute("userID", nickname);
+    	response.sendRedirect("index.jsp");
+    }
+	
 %>

@@ -12,7 +12,7 @@ public class UserDAO {
 	public UserDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "lee", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "dbID", "dbPWD");
 			System.out.println("ok");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -21,8 +21,6 @@ public class UserDAO {
 	}
 
 	public int join(User user) throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "lee", "1234");
 
 		PreparedStatement pstmt = null;
 		String SQL = "insert into user values(?,?,?,?,?,?)";
@@ -38,16 +36,27 @@ public class UserDAO {
 				return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException sqle) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException sqle) {
+				}
 		}
 		return -1;
 	}
 
 	public void insertMember(KakaoMember member) throws SQLException {
 		PreparedStatement pstmt = null;
-		Connection conn = null;
 		try {
 			String sql = "insert into kakaotable('id','kaccount_email','nickname') values (?,?,?)";
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getKaccount_email());
 			pstmt.setString(3, member.getNickname());
@@ -69,8 +78,7 @@ public class UserDAO {
 	}
 
 	public int login(String userID, String userPassword) throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "lee", "1234");
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from user where userID = ?";
@@ -88,6 +96,17 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("login() error");
+		}finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException sqle) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException sqle) {
+				}
 		}
 		return -2;
 	}

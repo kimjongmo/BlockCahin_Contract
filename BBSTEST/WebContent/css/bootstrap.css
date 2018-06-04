@@ -3551,7 +3551,7 @@ tbody.collapse.in {
 }
 .dropdown-menu > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 5px 10px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
@@ -4263,7 +4263,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-fixed-top {
-  top: 0;
+  top: 10;
   border-width: 0 0 1px;
 }
 .navbar-fixed-bottom {

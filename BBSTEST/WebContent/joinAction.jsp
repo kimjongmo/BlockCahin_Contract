@@ -20,12 +20,23 @@
 </head>
 <body>
 	<%
+		String userID = null;
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
+		if (userID != null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어있습니다.')");
+			script.println("location.href = 'index.jsp'");
+			script.println("</script>");
+		}
 		if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
 				|| user.getUserAddress() == null || user.getUserPhone() == null || user.getUserEmail() == null) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('입력이 안 된 사항이 존재합니다.')");
-			script.println("hitstory.back()");
+			script.println("location.href = 'join.jsp'");
 			script.println("</script>");
 		} else {
 			UserDAO userDAO = new UserDAO();
@@ -34,14 +45,15 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('이미 존재하는 아이디 입니다.')");
-				script.println("history.back()");
+				script.println("location.href = 'join.jsp'");
 				script.println("</script>");
 			} else {
+				session.setAttribute("userID", user.getUserID());
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("location.href = 'main.jsp'");
+				script.println("location.href = 'index.jsp'");
 				script.println("</script>");
-			} 
+			}
 		}
 	%>
 </body>
