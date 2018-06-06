@@ -174,13 +174,12 @@
 					</thead>
 				</table>
 				<a href="write.jsp" class="btn btn-primary pull-right">+</a>
-
 				
 			</div>			
 		</div>
 	</div>
 
-		<center>
+		<div align="center">
 			<div class="paging">
 				<ol>
 				<%
@@ -228,6 +227,6 @@
 						<input type="hidden" name="keyField" value="<%=keyField%>">
 						<input type="hidden" name="keyWord" value="<%=keyWord%>">
 					</form>
-			</center>
+			</div>
 </body>
 </html>
