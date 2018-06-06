@@ -60,7 +60,10 @@ public class BbsDAO {
 		return -1; // 데이터베이스오류
 	}
 
-	public void insert(HttpServletRequest request) {
+	//체인 등록하는 부분 작성하기
+	//org.app.Chaincode.invocation 패키지에 있는 소스
+	
+	public int insert(HttpServletRequest request) {
 		
 		
 		MultipartRequest multi = null;
@@ -74,9 +77,11 @@ public class BbsDAO {
 			if (!file.exists())
 				file.mkdirs();
 			multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-			if (multi.getFilesystemName("filename") != null) {
+			if (multi.getFilesystemName(multi.getParameter("userID")+":"+"filename") != null) {
 				filename = multi.getFilesystemName("filename");
 				filesize = (int) multi.getFile("filename").length();
+			}else {
+				return 0; // 파일이 이미 존재  ->fail
 			}
 
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -88,9 +93,12 @@ public class BbsDAO {
 			pstmt.setString(6, getDate());
 			
 			pstmt.execute();
+			
+			return 1;//파일이 존재하지 않았고, db에 제대로 저장되었을 때
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	public int getTotalCount(String keyField, String keyWord) {
