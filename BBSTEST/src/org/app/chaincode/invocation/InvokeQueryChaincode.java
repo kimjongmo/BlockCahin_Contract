@@ -72,7 +72,7 @@ public class InvokeQueryChaincode {
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
 			request.setFcn("inputFile");
-			String[] arguments = {"block1", "2018-05-31 09:23:00.0", "test", "admin" };
+			String[] arguments = {"test@block1", "2018-05-31 09:23:00.0", "admin" };
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
 
@@ -86,7 +86,7 @@ public class InvokeQueryChaincode {
 			Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
 			
 			Thread.sleep(10000);
-			String[] args1 = {"block1"};
+			String[] args1 = {"test@block1"};
 			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("fabcar", "searchFile", args1);
 			for (ProposalResponse pres : responses1Query) {
 				String stringResponse = new String(pres.getChaincodeActionResponsePayload());

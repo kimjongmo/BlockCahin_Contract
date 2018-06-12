@@ -70,21 +70,18 @@ public class BbsDAO {
 		int filesize = 0;
 		String filename = null;
 		String SQL = "insert into bbs value (?,?,?,?,?,?,0)";
-
+		
 		try {
-
+			request.setAttribute(request.getParameter("filename")+"@"+request.getParameter("userID"), "filename");
 			File file = new File(SAVEFOLDER);
 			if (!file.exists())
 				file.mkdirs();
 			multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-			if (multi.getFilesystemName(multi.getParameter("userID")+":"+"filename") != null) {
+			if (multi.getFilesystemName(multi.getFilesystemName("filename")) != null) {
 				filename = multi.getFilesystemName("filename");
 				filesize = (int) multi.getFile("filename").length();
-			}else {
-				return 0; // 파일이 이미 존재  ->fail
 			}
-
-			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			PreparedStatement pstmt = conn.prepareStatement(SQL); 
 			pstmt.setInt(1, getNext());
 			pstmt.setString(2, multi.getParameter("bbsTitle"));
 			pstmt.setString(3, multi.getParameter("userID"));
