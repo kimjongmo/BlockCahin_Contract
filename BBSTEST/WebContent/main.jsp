@@ -39,7 +39,9 @@
 	
 		<div class="collapse navbar-collapse" id="navbarResponsive">
           	<ul class="navbar-nav ml-auto">
-          	
+          	<li class="nav-item">
+              <a class="btn  btn btn-sm" href="test.jsp" role="button">누르시오우예~</a>
+            </li>
 			<li class="nav-item">
               <a class="btn  btn btn-sm" href="board.jsp" role="button">계약서 작성</a>
             </li>
