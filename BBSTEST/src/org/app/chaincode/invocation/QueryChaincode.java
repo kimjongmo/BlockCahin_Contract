@@ -59,28 +59,21 @@ public class QueryChaincode {
 			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
 			Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-			EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+			EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://210.123.254.152:7053");
 			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
 			channel.addPeer(peer);
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for all cars ...");
-			Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "queryAllCars", null);
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}
-
-			Thread.sleep(10000);
-			String[] args1 = {"CAR1"};
+			
+			String[] args1 = {"2장연습문제.pptx@kfmd1008"};
 			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for a car - " + args1[0]);
 			
-			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("fabcar", "queryCar", args1);
+			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("fabcar", "searchFile", args1);
 			for (ProposalResponse pres : responses1Query) {
 				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+				System.out.println(stringResponse);
 			}		
 			
 		} catch (Exception e) {

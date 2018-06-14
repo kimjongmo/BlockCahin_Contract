@@ -1,14 +1,43 @@
 package bbs;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.app.chaincode.invocation.InvokeChaincode;
+import org.app.chaincode.invocation.QueryChaincode;
+import org.app.client.CAClient;
+import org.app.client.ChannelClient;
+import org.app.client.FabricClient;
+import org.app.config.Config;
+import org.app.user.UserContext;
+import org.app.util.Util;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.EventHub;
+import org.hyperledger.fabric.sdk.Orderer;
+import org.hyperledger.fabric.sdk.Peer;
+import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -23,7 +52,7 @@ public class BbsDAO {
 	public BbsDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", "lee", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://210.123.254.113:3306/test", "lee", "1234");
 			System.out.println("ok");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,42 +89,225 @@ public class BbsDAO {
 		return -1; // 데이터베이스오류
 	}
 
-	//체인 등록하는 부분 작성하기
-	//org.app.Chaincode.invocation 패키지에 있는 소스
-	
-	public int insert(HttpServletRequest request) {
+	// 체인 등록하는 부분 작성하기
+	public void insertBlock(String filepath) throws Exception {
+		// 1. filepath에 있는 파일의 해쉬 값을 얻고
+		String[] array = filepath.split("\\/");
+
+		// 2. 파일이름@id , 일자, 해쉬값
+		String blockName = array[3] + "@" + array[2];
+		String hashValue = extractFileHashSHA256(filepath);
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String time = dayTime.format(new Date(System.currentTimeMillis()));
+
+		// 3. 체인코드 호출.
+
+		byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
+		String EXPECTED_EVENT_NAME = "event";
+
+		try {
+			String caUrl = Config.CA_ORG1_URL;
+			CAClient caClient = new CAClient(caUrl, null);
+			// Enroll Admin to Org1MSP
+			UserContext adminUserContext = new UserContext();
+			adminUserContext.setName(Config.ADMIN);
+			adminUserContext.setAffiliation(Config.ORG1);
+			adminUserContext.setMspId(Config.ORG1_MSP);
+			caClient.setAdminUserContext(adminUserContext);
+			adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
+
+			FabricClient fabClient = new FabricClient(adminUserContext);
+			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
+			Channel channel = channelClient.getChannel();
+			Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+			EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://210.123.254.152:7053");
+			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
+			channel.addPeer(peer);
+			channel.addEventHub(eventHub);
+			channel.addOrderer(orderer);
+			channel.initialize();
+
+			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
+			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
+			request.setChaincodeID(ccid);
+			request.setFcn("inputFile");
+
+			String[] arguments = { blockName, time, hashValue };
+			request.setArgs(arguments);
+			request.setProposalWaitTime(1000);
+
+			Map<String, byte[]> tm2 = new HashMap<>();
+			tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8)); // Just some extra junk
+																								// in transient map
+			tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8)); // ditto
+			tm2.put("result", ":)".getBytes(UTF_8)); // This should be returned see chaincode why.
+			tm2.put(EXPECTED_EVENT_NAME, EXPECTED_EVENT_DATA); // This should trigger an event see chaincode why.
+			request.setTransientMap(tm2);
+			Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
+			for (ProposalResponse res: responses) {
+				Status status = res.getStatus();
+				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Invoked createCar on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// 블록체인으로부터 값 가져오기
+	public String[] getBlock(String fileName, String userID) {
+		byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
+		String EXPECTED_EVENT_NAME = "event";
 		
-		
+		try {
+			Util.cleanUp();
+			String caUrl = Config.CA_ORG1_URL;
+			CAClient caClient = new CAClient(caUrl, null);
+			// Enroll Admin to Org1MSP
+			UserContext adminUserContext = new UserContext();
+			adminUserContext.setName(Config.ADMIN);
+			adminUserContext.setAffiliation(Config.ORG1);
+			adminUserContext.setMspId(Config.ORG1_MSP);
+			caClient.setAdminUserContext(adminUserContext);
+			adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
+
+			FabricClient fabClient = new FabricClient(adminUserContext);
+
+			ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
+			Channel channel = channelClient.getChannel();
+			Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+			EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://210.123.254.152:7053");
+			Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
+			channel.addPeer(peer);
+			channel.addEventHub(eventHub);
+			channel.addOrderer(orderer);
+			channel.initialize();
+			String args = fileName+"@"+userID;
+			String[] args1 = {args};
+			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for a car - " + args1[0]);
+
+			Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("fabcar", "searchFile",args1);
+			for (ProposalResponse pres : responses1Query) {
+				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+				System.out.println(stringResponse);
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// 파일의 해쉬값 가져오는 함수
+	public static String extractFileHashSHA256(String filename) throws Exception {
+
+		String SHA = "";
+		int buff = 16384;
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
+
+			MessageDigest hashSum = MessageDigest.getInstance("SHA-256");
+
+			byte[] buffer = new byte[buff];
+			byte[] partialHash = null;
+
+			long read = 0;
+
+			// calculate the hash of the hole file for the test
+			long offset = file.length();
+			int unitsize;
+			while (read < offset) {
+				unitsize = (int) (((offset - read) >= buff) ? buff : (offset - read));
+				file.read(buffer, 0, unitsize);
+
+				hashSum.update(buffer, 0, unitsize);
+
+				read += unitsize;
+			}
+
+			file.close();
+			partialHash = new byte[hashSum.getDigestLength()];
+			partialHash = hashSum.digest();
+
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < partialHash.length; i++) {
+				sb.append(Integer.toString((partialHash[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			SHA = sb.toString();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return SHA;
+	}
+
+	public boolean check(String userID, String fileName) {
+		String SQL = "select fileName from bbs where userID=? and fileName=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, fileName);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return false;
+			}
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	public int insert(HttpServletRequest request, String userID) {// return : Int
+																	// 0=> 성공
+																	// 1=> 파일 중복
+																	// 2=> 시스템 적인 문제
 		MultipartRequest multi = null;
 		int filesize = 0;
 		String filename = null;
 		String SQL = "insert into bbs value (?,?,?,?,?,?,0)";
-		
+
 		try {
-			request.setAttribute(request.getParameter("filename")+"@"+request.getParameter("userID"), "filename");
 			File file = new File(SAVEFOLDER);
 			if (!file.exists())
 				file.mkdirs();
-			multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-			if (multi.getFilesystemName(multi.getFilesystemName("filename")) != null) {
+
+			File userfile = new File(SAVEFOLDER + "/" + userID);
+			if (!userfile.exists())
+				userfile.mkdirs();
+
+			// 여기 밑에 부터는 파일 바로 생성된다는 것 같음.
+			multi = new MultipartRequest(request, SAVEFOLDER + "/" + userID, MAXSIZE, ENCTYPE,
+					new DefaultFileRenamePolicy());
+
+			if (multi.getFilesystemName("filename") != null) {
 				filename = multi.getFilesystemName("filename");
 				filesize = (int) multi.getFile("filename").length();
 			}
-			PreparedStatement pstmt = conn.prepareStatement(SQL); 
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
 			pstmt.setString(2, multi.getParameter("bbsTitle"));
 			pstmt.setString(3, multi.getParameter("userID"));
 			pstmt.setString(4, filename);
 			pstmt.setInt(5, filesize);
 			pstmt.setString(6, getDate());
-			
+
 			pstmt.execute();
-			
-			return 1;//파일이 존재하지 않았고, db에 제대로 저장되었을 때
+
+			return 0;// 파일이 존재하지 않았고, db에 제대로 저장되었을 때
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return 2;
 	}
 
 	public int getTotalCount(String keyField, String keyWord) {
@@ -192,7 +404,7 @@ public class BbsDAO {
 		}
 		return vlist;
 	}
-	
+
 	public int getBoardList(int bbsID) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

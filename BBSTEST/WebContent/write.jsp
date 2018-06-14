@@ -36,6 +36,12 @@
 <meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>계약서 웹페이지</title>
+<script>
+	function submit1(){
+		document.form1.action = "./writeAction.jsp?fileN="+encodeURI(document.form1.filename.value);
+		document.form1.submit();
+	}
+</script>
 </head>
 <body>
 
@@ -68,7 +74,7 @@
 		<div class="container">
 			
 			<!-- 문서파일 등록 부분 -->
-				<form method="post" action="writeAction.jsp" enctype="multipart/form-data">
+				<form name = "form1" method="post" enctype="multipart/form-data">
 					<table class="table table-striped" style="text-align: center; border:1px solid #dddddd">
 						<thead>
 							<tr>
@@ -91,7 +97,7 @@
 								</tr>
 						</tbody>
 					</table>
-						<input type="submit" class="btn btn-primary pull-right" value="등록">
+						<button class="btn btn-primary pull-right" onclick="submit1()">등록</button>
 				</form>
 			</div>			
 	</div>

@@ -12,7 +12,7 @@ public class UserDAO {
 	public UserDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test",  "lee", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://210.123.254.113:3306/test",  "lee", "1234");
 			System.out.println("ok");
 		} catch (Exception e) {
 			e.printStackTrace();

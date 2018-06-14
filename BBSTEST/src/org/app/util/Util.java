@@ -53,7 +53,7 @@ public class Util {
 	 * @throws Exception
 	 */
 	public static void writeUserContext(UserContext userContext) throws Exception {
-		String directoryPath = "users/" + userContext.getAffiliation();
+		String directoryPath = "C:/Users/CS3-12/git/Blockchain_Contract/Blockcahin_Contract/BBSTEST/users/" + userContext.getAffiliation();
 		String filePath = directoryPath + "/" + userContext.getName() + ".ser";
 		File directory = new File(directoryPath);
 		if (!directory.exists())
@@ -78,7 +78,7 @@ public class Util {
 	 * @throws Exception
 	 */
 	public static UserContext readUserContext(String affiliation, String username) throws Exception {
-		String filePath = "users/" + affiliation + "/" + username + ".ser";
+		String filePath = "C:/Users/CS3-12/git/Blockchain_Contract/Blockcahin_Contract/BBSTEST/users/" + affiliation + "/" + username + ".ser";
 		File file = new File(filePath);
 		if (file.exists()) {
 			// Reading the object from a file
@@ -143,7 +143,7 @@ public class Util {
 	}
 	
 	public static void cleanUp() {
-		String directoryPath = "users";
+		String directoryPath = "C:/Users/CS3-12/git/Blockchain_Contract/Blockcahin_Contract/BBSTEST/users";
 		File directory = new File(directoryPath);
 		deleteDirectory(directory);
 	}
