@@ -353,7 +353,7 @@ public class BbsDAO {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
 			pstmt.setString(2, multi.getParameter("bbsTitle"));
-			pstmt.setString(3, multi.getParameter("userID"));
+			pstmt.setString(3, userID);
 			pstmt.setString(4, filename);
 			pstmt.setInt(5, filesize);
 			pstmt.setString(6, getDate());

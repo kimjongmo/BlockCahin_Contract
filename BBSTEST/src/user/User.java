@@ -3,7 +3,14 @@ package user;
 public class User {
 	private String userID;
 	private String userPassword;
+	private String userPasswordck;
 	private String userName;
+	public String getUserPasswordck() {
+		return userPasswordck;
+	}
+	public void setUserPasswordck(String userPasswordck) {
+		this.userPasswordck = userPasswordck;
+	}
 	private String userAddress;
 	private String userPhone;
 	private String userEmail;

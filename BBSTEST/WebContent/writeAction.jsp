@@ -7,8 +7,20 @@
 <%
 	request.setCharacterEncoding("utf-8");%>
 <%
+
+	String userID="";
 	BbsDAO bda = new BbsDAO();
-	String userID = (String)session.getAttribute("userID");
+	System.out.println("userID="+session.getAttribute("userID")+",nickname="+session.getAttribute("nickname"));
+	
+	
+	if(session.getAttribute("nickname")==null){//nickname null이라는 것은 카카오로 접속 하지 않음을 의미
+		userID = (String)session.getAttribute("userID");
+	}
+	else	//nickname이 null이 아니라는 것은 카카오로 접속했다는 것을 의미  참고: ./test.jsp 21~22라인
+		userID = (String)session.getAttribute("nickname");////==> id
+	
+		
+	System.out.println(userID);
 	//파일 이름 가져오기
 	String str = request.getParameter("fileN");
 	String[] array = str.split("\\\\");

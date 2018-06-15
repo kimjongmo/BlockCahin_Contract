@@ -146,9 +146,14 @@
 							<th style="background-color: #eeeeee; text-align: center;">작성일</th>
 						</tr>
 						<%
-							bMgr = new BbsDAO();
-						    vlist = bMgr.getBoardList(keyField, keyWord, start, end, (String)session.getAttribute("userID"));
+								bMgr = new BbsDAO();
+							if(session.getAttribute("nickname")==null){
+						    	vlist = bMgr.getBoardList(keyField, keyWord, start, end, (String)session.getAttribute("userID"));
+						    }else{
+						    	vlist = bMgr.getBoardList(keyField, keyWord, start, end, (String)session.getAttribute("nickname"));
+						    }
 							listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
+							
 							if (vlist.isEmpty()) {
 						%>
 						<tr> <td colspan="4" align="center">등록된 게시물이 없습니다.</td> </tr>
