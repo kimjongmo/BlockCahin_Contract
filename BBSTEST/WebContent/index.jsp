@@ -52,8 +52,11 @@
           <%
           	if(userID == null){
           %> 
+             <li class="nav-item">
+              <a class="btn  btn btn-sm" href="getTest.jsp" role="button">테스트</a>
+            </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">소개</a>
+              <a class="nav-link js-scroll-trigger" href="validation.jsp">검증하기</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#services">서비스 특징</a>
@@ -81,7 +84,7 @@
               <a class="nav-link js-scroll-trigger" href="board.jsp">계약서 작성</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="myPage.jsp">마이페이지</a>
+              <a class="nav-link js-scroll-trigger" href="validation.jsp">검증</a>
             </li>
             <li class="nav-item">
               <font size="2em" color="orange"><%=session.getAttribute("userID")%> 님</font>

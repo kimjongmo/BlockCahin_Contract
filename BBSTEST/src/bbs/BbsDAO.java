@@ -47,7 +47,7 @@ public class BbsDAO {
 	private ResultSet rs;
 	private static final String SAVEFOLDER = "C:\\file"; // 실제 파일 저장 경로
 	private static final String ENCTYPE = "utf-8";
-	private static int MAXSIZE = 10 * 1024 * 1024; // 10MB
+	private static int MAXSIZE = 100 * 1024 * 1024; // 100MB
 
 	public BbsDAO() {
 		try {
@@ -89,6 +89,65 @@ public class BbsDAO {
 		return -1; // 데이터베이스오류
 	}
 
+	//validation
+	 public Vector<Bbs> getBoardList2(String keyField, String keyWord, int start, int end) {
+         PreparedStatement pstmt = null;
+         ResultSet rs = null;
+         String sql = null;
+         Vector<Bbs> vlist = new Vector<Bbs>();
+         try {
+            if (keyWord.equals("null") || keyWord.equals("")) {
+               sql = "select bbsID, bbsTitle, userID, fileName, filesize, bbsDate, pos from bbs order by bbsID desc, pos limit ?, ?";
+               // 모든 게시물을 가져오기 위한 SQL문
+               pstmt = conn.prepareStatement(sql);
+               pstmt.setInt(1, start);
+               pstmt.setInt(2, end);
+            } else {
+               sql = "select * from bbs where " + keyField + " like ? ";
+               sql += "order by bbsID desc, pos limit ?,?";
+               pstmt = conn.prepareStatement(sql);
+               pstmt.setString(1, "%" + keyWord + "%");
+               pstmt.setInt(2, start);
+               pstmt.setInt(3, end);
+            }
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+               Bbs bean = new Bbs();
+               bean.setBbsID(rs.getInt("bbsID"));
+               bean.setBbsTitle(rs.getString("bbsTitle"));
+               bean.setUserID(rs.getString("userID"));
+               bean.setFileName(rs.getString("fileName"));
+               bean.setFilesize(rs.getInt("filesize"));
+               bean.setBbsDate(rs.getString("bbsDate"));
+               vlist.add(bean);
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         } finally {
+            if (rs != null)
+               try {
+                  rs.close();
+               } catch (SQLException ex) {
+               }
+            if (pstmt != null)
+               try {
+                  pstmt.close();
+               } catch (SQLException ex) {
+               }
+            if (conn != null)
+               try {
+                  conn.close();
+               } catch (SQLException ex) {
+               }
+         }
+         return vlist;
+      }
+
+	
+	
+	
+	
+	
 	// 체인 등록하는 부분 작성하기
 	public void insertBlock(String filepath) throws Exception {
 		// 1. filepath에 있는 파일의 해쉬 값을 얻고
@@ -187,11 +246,12 @@ public class BbsDAO {
 			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for a car - " + args1[0]);
 
 			Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("fabcar", "searchFile",args1);
+			String stringResponse="";
 			for (ProposalResponse pres : responses1Query) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+				stringResponse = new String(pres.getChaincodeActionResponsePayload());
 				System.out.println(stringResponse);
 			}
-
+			return stringResponse.split(",");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -268,9 +328,6 @@ public class BbsDAO {
 	}
 
 	public int insert(HttpServletRequest request, String userID) {// return : Int
-																	// 0=> 성공
-																	// 1=> 파일 중복
-																	// 2=> 시스템 적인 문제
 		MultipartRequest multi = null;
 		int filesize = 0;
 		String filename = null;
@@ -404,7 +461,43 @@ public class BbsDAO {
 		}
 		return vlist;
 	}
+	
+	
+	//검증하기
+	public String validate(HttpServletRequest request, String userID, String filename) {
+		
+		MultipartRequest multi = null;
 
+		try {
+			File file = new File(SAVEFOLDER);
+			if (!file.exists())
+				file.mkdirs();
+
+			File userfile = new File(SAVEFOLDER + "/temp");
+			if (!userfile.exists())
+				userfile.mkdirs();
+				//    c:/file/temp에 저장.
+			multi = new MultipartRequest(request, SAVEFOLDER + "/temp", MAXSIZE, ENCTYPE);
+			
+			String[] str = getBlock(filename,userID);
+			String[] str1 = str[2].split("\\\"");
+			String block = str1[3];
+			String comparedBlock = extractFileHashSHA256("c:/file/temp/"+filename);
+			
+			System.out.println("block:"+block);
+			System.out.println("comparedBlock:"+comparedBlock);
+			if(block.equals(comparedBlock)) {
+				return "같은 파일입니다";
+			}else {
+				return "동일한 파일이 아닙니다";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 	public int getBoardList(int bbsID) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

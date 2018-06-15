@@ -67,7 +67,7 @@ public class QueryChaincode {
 			channel.initialize();
 
 			
-			String[] args1 = {"2장연습문제.pptx@kfmd1008"};
+			String[] args1 = {"yb.txt@aaa"};
 			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for a car - " + args1[0]);
 			
 			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("fabcar", "searchFile", args1);

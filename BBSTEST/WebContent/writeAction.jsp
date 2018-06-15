@@ -24,12 +24,10 @@
 			script.println("location.href=write.jsp");
 			script.println("</script>");
 		}else{//성공
-			String filepath = "C:/file/"+userID+"/"+fileName;
-			//블록 만들어서 저장 하는 부분 bda.insertBlock();
-			bda.insertBlock(filepath);
-			//test
-			String[] json = bda.getBlock(fileName, userID);
-			System.out.println("BlockName:"+json[0]+",\tDate:"+json[1]+",\tHash:"+json[2]);
+			String filepath="C:/file/"+userID+"/"+fileName;
+		
+		 	bda.insertBlock(filepath);
+		 	
 			response.sendRedirect("./board.jsp");
 		}
 	}else{
