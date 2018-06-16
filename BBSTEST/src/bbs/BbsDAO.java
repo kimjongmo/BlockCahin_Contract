@@ -467,7 +467,6 @@ public class BbsDAO {
 	public String validate(HttpServletRequest request, String userID, String filename) {
 		
 		MultipartRequest multi = null;
-
 		try {
 			File file = new File(SAVEFOLDER);
 			if (!file.exists())
@@ -479,10 +478,11 @@ public class BbsDAO {
 				//    c:/file/temp에 저장.
 			multi = new MultipartRequest(request, SAVEFOLDER + "/temp", MAXSIZE, ENCTYPE);
 			
+			String comparedFile = multi.getFilesystemName("file");
 			String[] str = getBlock(filename,userID);
 			String[] str1 = str[2].split("\\\"");
 			String block = str1[3];
-			String comparedBlock = extractFileHashSHA256("c:/file/temp/"+filename);
+			String comparedBlock = extractFileHashSHA256("c:/file/temp/"+comparedFile);
 			
 			System.out.println("block:"+block);
 			System.out.println("comparedBlock:"+comparedBlock);

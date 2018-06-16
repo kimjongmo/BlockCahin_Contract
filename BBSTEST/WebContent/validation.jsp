@@ -73,7 +73,7 @@
    }
    function go_pop(userID, filename){
 	   window.name="검증 하기";
-	  openWin = window.open("compare.jsp?userID="+userID+"&filename="+filename,"new","width=370 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;");
+	  window.open("compare.jsp?userID="+userID+"&filename="+filename,"new","width=500 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;");
    }
 </script>
 <head>
@@ -114,9 +114,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
              <ul class="navbar-nav ml-auto">
 <%if(userID == null) { %>
-            <li class="nav-item">
-              <a class="btn  btn btn-sm" href="validation.jsp" role="button">검증하러가기</a>
-            </li>
+            
             <li class="nav-item">
               <a class="btn  btn btn-sm" href="login.jsp" role="button">로그인</a>
             </li>
@@ -126,7 +124,7 @@
               <a class="btn  btn btn-sm" href="board.jsp" role="button">계약서 작성</a>
             </li>
             <li class="nav-item">
-              <a class="btn  btn btn-sm" href="myPage.jsp" role="button">검증하러가기</a>
+              <a class="btn  btn btn-sm" href="myPage.jsp" role="button">검증하기</a>
             </li>
             <li class="nav-item">
               <font size="2em" color="orange"><%=session.getAttribute("userID")%> 님</font>

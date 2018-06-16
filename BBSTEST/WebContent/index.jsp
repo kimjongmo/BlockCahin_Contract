@@ -52,9 +52,6 @@
           <%
           	if(userID == null){
           %> 
-             <li class="nav-item">
-              <a class="btn  btn btn-sm" href="getTest.jsp" role="button">테스트</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="validation.jsp">검증하기</a>
             </li>
@@ -116,7 +113,7 @@
           </div>
           <div class="col-lg-8 mx-auto">
             <p class="text-faded mb-5">Contract Master는 계약서 파일을 생성하여 안전하고 암호화된 블록체인에 연결하여 관리할 수 있는 서비스입니다. </p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">서비스 이용해보기</a>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="validation.jsp">검증하러 가기</a>
           </div>
         </div>
       </div>
@@ -147,34 +144,35 @@
       </div>
       
       <!-- 아이콘 넣는 부분  -->
-      <div class="container">
-        <div class="row">
+      <div class="container" >
+      
+        <div class="row" >
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">계약서 작성</h3>
-              <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
+              <h3 class="mb-3">문서 저장</h3>
+              <p class="text-muted mb-0">You can save your important files. Yeah~</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">계약서 생성</h3>
-              <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
+              <h3 class="mb-3">검증 시스템</h3>
+              <p class="text-muted mb-0">You can check if there are any changes in your file.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">계약서 조회</h3>
-              <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
+              <h3 class="mb-3">안전한 보안</h3>
+              <p class="text-muted mb-0">We demonstrate integrity by using block chains.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">안전한 보안</h3>
-              <p class="text-muted mb-0">You have to make your websites with love these days!</p>
+              <h3 class="mb-3">간편함</h3>
+              <p class="text-muted mb-0">We can veriy without special subscription.</p>
             </div>
           </div>
         </div>
@@ -188,90 +186,90 @@
       <div class="container-fluid p-0">
         <div class="row no-gutters popup-gallery">
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/1.png">
+              <img class="img-fluid" src="img/portfolio/thumbnails/1.png" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                    	첫 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                  		 회원가입을 해줍니다^_^
                   </div>
                 </div>
               </div>
             </a>
           </div>
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/2.PNG">
+              <img class="img-fluid" src="img/portfolio/thumbnails/2.PNG" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                   		 두 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                   		로그인을 해줍니다!
                   </div>
                 </div>
               </div>
             </a>
           </div>
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/3.JPG">
+              <img class="img-fluid" src="img/portfolio/thumbnails/3.JPG" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                    	세 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                    	카카오로 가능합니다~
                   </div>
                 </div>
               </div>
             </a>
           </div>
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/4.JPG">
+              <img class="img-fluid" src="img/portfolio/thumbnails/4.JPG" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                    	네 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                    	중요한 문서를 저장합니다.
                   </div>
                 </div>
               </div>
             </a>
           </div>
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/5.JPG">
+              <img class="img-fluid" src="img/portfolio/thumbnails/5.JPG" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                    	다섯 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                    	올린 파일을 검증합니다.
                   </div>
                 </div>
               </div>
             </a>
           </div>
           <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+            <a class="portfolio-box" href="img/portfolio/fullsize/6.JPG">
+              <img class="img-fluid" src="img/portfolio/thumbnails/6.JPG" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-category text-faded">
-                    Category
+                    	여섯 번째
                   </div>
                   <div class="project-name">
-                    Project Name
+                    	비회원도 검증이 가능하답니다!!
                   </div>
                 </div>
               </div>
@@ -284,8 +282,8 @@
 	<!-- 로그인 했을 때 안했을 때 차이  -->
     <section class="bg-dark text-white">
       <div class="container text-center">
-        <h2 class="mb-4">[↑ 기능을 추가한 후에 사진을 넣을 예정..]</h2>
-			<a class="btn btn-light btn-xl sr-button" href="#contact">로그인을 해주세요!</a>
+        <h2 class="mb-4">MADE BY LEE&KIM</h2>
+			<a class="btn btn-light btn-xl sr-button" href="#contact">로그인을 해주세요~!</a>
 		</div>
     </section>
 
@@ -306,7 +304,7 @@
           <div class="col-lg-4 mr-auto text-center">
             <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
             <p>
-              <a href="mailto:your-email@your-domain.com">admin@gmail.com</a>
+              <a href="mailto:your-email@your-domain.com">admin @ gmail.com</a>
             </p>
           </div>
         </div>

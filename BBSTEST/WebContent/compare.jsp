@@ -18,9 +18,11 @@
 </script>
 </head>
 <body>
-파일이름 :	<%=filename %>
-유저ID  :<%=userID %>
-비교할 파일을 올려주세요
+<p style = "color:green;">선택한 파일 >><br>
+<p style = "color:green;">파일이름 :	<%=filename %><br>
+<p style = "color:green;">유저ID  :<%=userID %><br>
+<p style = "color:red;">*선택한 파일과 비교할 파일을 올려주세요*</p>
+<br>
 <form  name="form1" method="post" enctype="multipart/form-data">
 	<input type="file" name="file" size="50" placeholder="파일" ></input>
 	<input type="hidden" name="filename" value="<%=filename%>"></input>

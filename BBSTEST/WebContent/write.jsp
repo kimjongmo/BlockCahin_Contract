@@ -56,7 +56,7 @@
               <a class="btn  btn btn-sm" href="main.jsp" role="button">계약서 작성</a>
             </li>
             <li class="nav-item">
-              <a class="btn  btn btn-sm" href="myPage.jsp" role="button">마이페이지</a>
+              <a class="btn  btn btn-sm" href="validation.jsp" role="button">검증하기</a>
             </li>
             <li class="nav-item">
               <%=session.getAttribute("userID")%> 님

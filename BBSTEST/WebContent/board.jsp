@@ -117,7 +117,7 @@
               <a class="btn  btn btn-sm" href="board.jsp" role="button">계약서 작성</a>
             </li>
             <li class="nav-item">
-              <a class="btn  btn btn-sm" href="myPage.jsp" role="button">마이페이지</a>
+              <a class="btn  btn btn-sm" href="validation.jsp" role="button">검증하기</a>
             </li>
             <li class="nav-item">
               <a class="btn  btn btn-sm"><%=session.getAttribute("userID")%> 님</a>
@@ -211,7 +211,7 @@
 					<%}%>
 				</ol>
 				</div>
-					<form name="listFrm" method="post">
+					<!-- <form name="listFrm" method="post">
 					<div class="boardSearch">
 						<select name="keyField">
 						<option value="title" selected="selected">제목</option>
@@ -225,7 +225,7 @@
 						<input type="hidden" name="nowPage" value="1">
 
 						</div>
-					</form>
+					</form> -->
 					<form name="readFrm" method="get">
 						<input type="hidden" name="pagefile" value="board">
 						<input type="hidden" name="idx"> <input type="hidden" name="nowPage" value="<%=nowPage%>">

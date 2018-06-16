@@ -14,6 +14,7 @@
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('"+result+"')");
+	script.println("history.back();");
 	script.println("</script>");
 	
 %>
