@@ -11,8 +11,16 @@ import java.util.List;
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private UserService userService;
 
     public List<Board> getList(){
         return boardRepository.findAll();
     }
+
+    public void save(Board board,String userId){
+        board.setUser(userService.findByUserId(userId));
+        boardRepository.save(board);
+    }
+
 }

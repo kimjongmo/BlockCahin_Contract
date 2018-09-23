@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-
 <head>
-
-    <!-- 1. 부트스트랩에서 가져온 css  -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -43,20 +39,16 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-                <a class="btn  btn btn-sm" href="/board/write" role="button">계약서 작성</a>
+                <a class="btn  btn btn-sm" href="/" role="button">계약서 작성</a>
             </li>
             <li class="nav-item">
-                <a class="btn  btn btn-sm"
-                   href="../../../../../../../Desktop/BlockCahin_Contract-master/BlockCahin_Contract-master/BBSTEST/WebContent/validation.jsp"
-                   role="button">검증하기</a>
+                <a class="btn  btn btn-sm" href="validation.jsp" role="button">검증하기</a>
             </li>
             <li class="nav-item">
-                <a class="btn  btn btn-sm" ><p th:text="${session.userID}">님</p></a>
+                <p th:text="${session.userID}"/>님
             </li>
             <li class="nav-item">
-                <a class="btn  btn btn-sm"
-                   href="/login/logout"
-                   role="button">로그아웃</a>
+                <a class="btn  btn btn-sm" href="logoutAction.jsp" role="button">로그아웃</a>
             </li>
         </ul>
 
@@ -66,41 +58,36 @@
 <!-- 2. 문서파일 올리는 게시판 부분  -->
 <div class="jumbotron" style="padding-top: 20px;">
     <div class="container">
-        <div class="row">
+        <!-- 문서파일 등록 부분 -->
+        <form name="form1" action="/board/create" method="post" enctype="multipart/form-data">
             <table class="table table-striped" style="text-align: center; border:1px solid #dddddd">
                 <thead>
                 <tr>
-                    <th style="background-color: #eeeeee; text-align: center;">번호</th>
-                    <th style="background-color: #eeeeee; text-align: center;">문서 제목</th>
-                    <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-                    <th style="background-color: #eeeeee; text-align: center;">작성일</th>
-                </tr>
-                <tr th:if="${board.size()}==0">
-                    <td colspan="4" align="center">등록된 게시물이 없습니다.</td>
-                </tr>
-                <tr th:unless="${board.size()}==0" th:each="list : ${board}" >
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getId()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getTitle()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getUser().getUserId()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getCreatedAt()}"></th>
+                    <th colspan="2" style="background-color: #eeeeee; text-align: center;">문서 올리기 양식</th>
                 </tr>
                 </thead>
+                <tbody>
+                <tr>
+                    <td>아이디 :</td>
+                    <!-- <input type = "text" name = "userID"  readonly> -->
+                    <td><input type="text" class="form-control" th:value="${session.userID}" readonly name="userID">
+                    </td>
+                </tr>
+                <tr>
+                    <td>문서 제목 :</td>
+                    <td><input type="text" class="form-control" placeholder="문서 제목" name="title" maxlength="50"></td>
+                </tr>
+                <tr>
+                    <td>문서파일 찾기 :</td>
+                    <td><input type="file" name="file" size="50" maxlength="50"></td>
+                </tr>
+                </tbody>
             </table>
-            <a href="/board/write"
-               class="btn btn-primary pull-right">+</a>
+            <button class="btn btn-primary pull-right" onclick="submit()">등록</button>
+        </form>
 
-        </div>
     </div>
 </div>
 
-<div align="center">
-    </div>
-    <form name="readFrm" method="get">
-        <input type="hidden" name="pagefile" value="board">
-        <input type="hidden" name="idx"> <input type="hidden" name="nowPage" value="<%=nowPage%>">
-        <input type="hidden" name="keyField" value="<%=keyField%>">
-        <input type="hidden" name="keyWord" value="<%=keyWord%>">
-    </form>
-</div>
 </body>
 </html>

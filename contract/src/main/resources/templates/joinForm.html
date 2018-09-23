@@ -27,15 +27,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <title>계약서 웹페이지</title>
     <script type="text/javascript" src="/js/check.js"></script>
-    <script>
-        function goPopup(){
-            var pop = window.open("../jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-        }
-        function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
-            document.f.userAddress1.value = roadAddrPart1;
-            document.f.userAddress.value = addrDetail;
-        }
-    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light fixed-top"
@@ -69,15 +61,11 @@
                 <input type="text" class="form-control" placeholder="이름" name="userName" maxlength="10">
                 <font size="1"><span style="color:red">*이름은 2자 이상 입력해주세요</span></font>
             </div>
-
-            <div class="form-group" style="text-align: center;">
-                <input type="button" onclick="goPopup()" class="btn btn-primary active" value="주소검색"></input>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="주소 입력" name="userAddress1" maxlength="100" >
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="주소 입력" name="userAddress1" maxlength="100" readonly>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="상세 주소" name="userAddress" maxlength="100" readonly>
+                <input type="text" class="form-control" placeholder="상세 주소" name="userAddress" maxlength="100" >
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="전화번호" name="userPhone" maxlength="13">
