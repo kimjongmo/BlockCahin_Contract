@@ -19,7 +19,7 @@ public class BoardService {
     }
 
     public void save(Board board,String userId){
-        board.setUser(userService.findByUserId(userId));
+        board.setUser(userService.findByUserId(userId)); //
         boardRepository.save(board);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
 
-    private static final String UPLOAD_FOLDER = "C:/contrant";
+    private static final String UPLOAD_FOLDER = "C:/contract"; //이부분 폴더 명 수정
 
     @Autowired
     private BoardService boardService;
