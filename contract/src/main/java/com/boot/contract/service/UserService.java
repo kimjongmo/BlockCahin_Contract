@@ -17,8 +17,8 @@ public class UserService {
         return userRepository.findById(id).orElse(new User()); //여기
     }
 
-    public boolean checkUserId(Long id){ //여기
-        return userRepository.existsById(id); //여기
+    public boolean checkUserId(String userId){ //여기
+        return userRepository.existsById(userId); //여기
     }
 
     public void save(User user){

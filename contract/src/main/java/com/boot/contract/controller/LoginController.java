@@ -48,7 +48,8 @@ public class LoginController {
         /*
          * 중복 ID체크하는 부분 valid 어노테이션 붙여서 검증하는 부분까지 추가하기.
          * */
-        if (userService.checkUserId(user.getId()) {
+        if (userService.checkUserId(user.getUserId()))
+        {
             return "redirect:/login/form";
         }
         userService.save(user);
