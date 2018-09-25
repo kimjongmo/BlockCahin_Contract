@@ -64,6 +64,7 @@ public class BoardController {
             return "redirect:/board/write";
         }
         log.info("FileName : {}, title : {}",file.getName(),title);
+        Long id = LoginSession.getId(session); //이부분 추가
         String userId = LoginSession.getName(session);
         Board board = new Board();
         board.setFileSize(file.getSize());
@@ -86,7 +87,7 @@ public class BoardController {
         }catch(IOException e){
             log.info("Exception  Class: {}, Messages:{}",e.getClass(),e.getMessage());
         }
-        boardService.save(board,userId);
+        boardService.save(board, id); //이 부분
 
         return "redirect:/board/list";
     }
