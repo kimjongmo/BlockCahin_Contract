@@ -68,7 +68,7 @@ public class BoardController {
         String userId = LoginSession.getName(session);
         Board board = new Board();
         board.setFileSize(file.getSize());
-        board.setFileName(file.getName());
+        board.setFileName(file.getOriginalFilename());
         board.setTitle(title);
         try{
             File rootFolder = new File(UPLOAD_FOLDER+"/"+userId);

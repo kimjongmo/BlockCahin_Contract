@@ -42,8 +42,6 @@
         function logoutWithKakao() {
             Kakao.Auth.logout();
             alert('카카오 로그아웃 완료!');
-            setCookie("kakao_login", "", -1); // 쿠키삭제 (로그아웃)
-            //deleteCookie( "kakao_login" ); 쿠키삭제 다른 방법
             window.location.href = "/login/form";
         }
     </script>
@@ -91,9 +89,9 @@
                                 Kakao.API.request({
                                     url : '/v1/user/me',
                                     success : function(res) {
-                                        document.frm.id.value = JSON.stringify(res.id);
-                                        document.frm.kaccount_email.value = JSON.stringify(res.kaccount_email);
-                                        document.frm.nickname.value = JSON.stringify(res.properties.nickname);
+                                        document.frm.kakaoId.value = JSON.stringify(res.id);
+                                        document.frm.kakaoEmail.value = JSON.stringify(res.kaccount_email);
+                                        document.frm.nickName.value = JSON.stringify(res.properties.nickname);
                                         document.frm.submit();
                                     },
                                     fail : function(error) {
@@ -116,10 +114,10 @@
 </div>
 <input type="button" onclick="logoutWithKakao()" value = "카카오 쿠키제거">
 
-<form action="test.jsp" method="post" name="frm">
-    <input type="hidden" name="id" value="">
-    <input type="hidden"name="kaccount_email" value="">
-    <input type="hidden"name="nickname" value="">
+<form action="/login/detail" method="post" name="frm">
+    <input type="hidden" name="kakaoId" value="">
+    <input type="hidden"name="kakaoEmail" value="">
+    <input type="hidden"name="nickName" value="">
 </form>
 </body>
 </html>

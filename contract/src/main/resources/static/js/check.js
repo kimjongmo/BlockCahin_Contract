@@ -99,3 +99,49 @@ function sendIt() {
 
     document.f.submit()
 }
+
+function sendIt2() {
+    var email = document.f.kakaoEmail.value;
+    var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+
+
+    if (document.f.kakaoEmail.value == "") {
+        alert("이메일을 입력하지 않았습니다.")
+        document.f.userEmail.focus()
+        return false;
+    }
+
+
+    if (regex.test(email) === false) {
+        alert("잘못된 이메일 형식입니다.");
+        document.f.kakaoEmail.value = ""
+        document.f.kakaoEmail.focus()
+        return false;
+    }
+    if (document.f.name.value == "") {
+        alert("이름을 입력하지 않았습니다.")
+        document.f.name.focus()
+        return false;
+    }
+    if (document.f.name.value.length < 2) {
+        alert("이름을 2자 이상 입력해주십시오.")
+        document.f.name.focus()
+        return false;
+    }
+
+    //주소 폰번호 입력여부 체크
+
+    if (document.f.address.value == "") {
+        alert("주소를 입력하지 않았습니다.")
+        document.f.address.focus()
+        return false;
+    }
+
+    if (document.f.phoneNumber.value == "") {
+        alert("핸드폰 번호를 입력하지 않았습니다.")
+        document.f.phoneNumber.focus()
+        return false;
+    }
+
+    document.f.submit()
+}

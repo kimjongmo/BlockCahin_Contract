@@ -1,15 +1,20 @@
 package com.boot.contract.controller;
 
 import com.boot.contract.model.User;
+import com.boot.contract.param.KakaoParam;
+import com.boot.contract.param.KakaoTempParam;
 import com.boot.contract.param.LoginParam;
 import com.boot.contract.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -40,6 +45,31 @@ public class LoginController {
         return "redirect:/login/form";
     }
 
+    @RequestMapping(value = "/detail",method = RequestMethod.POST)
+    public String detail( KakaoTempParam kakaoTempParam, Model model){
+
+        /*
+        * 유저 체크 : 성공 => 로그인 session 설정하고 index로 보내주기
+        *           : 실패 => 아래 로직 실행
+        * */
+        if(kakaoTempParam.getNickName().equals("undefined"))
+            kakaoTempParam.setNickName("");
+        if(kakaoTempParam.getKakaoEmail().equals("undefined"))
+            kakaoTempParam.setKakaoEmail("");
+        //"김종모"
+        if(kakaoTempParam.getNickName()!="") {
+            kakaoTempParam.setNickName(kakaoTempParam.getNickName().replaceAll("\"",""));
+        if(kakaoTempParam.getKakaoEmail()!="")
+            kakaoTempParam.setKakaoEmail(kakaoTempParam.getKakaoEmail().replaceAll("\"",""));
+        }
+        log.info("kakaoTempParam: {}",kakaoTempParam);
+        model.addAttribute("temp",kakaoTempParam);
+        return "detailForm";
+    }
+
+
+
+
     @RequestMapping(value = "/joinForm")
     public String joinForm() {
         return "joinForm";
@@ -58,9 +88,27 @@ public class LoginController {
         return "redirect:/index";
     }
 
+    @RequestMapping(value = "/kakaoJoin", method = RequestMethod.POST)
+    public String join(KakaoParam kakaoParam) {
+
+        log.info("kakaoParam: {}",kakaoParam);
+        User user = new User();
+        user.setUserId(kakaoParam.getKakaoId());
+        user.setUserName(kakaoParam.getName());
+        user.setUserAddress(kakaoParam.getAddress());
+        user.setUserEmail(kakaoParam.getKakaoEmail());
+        user.setUserPhone(kakaoParam.getPhoneNumber());
+        user.setUserPassword(UUID.randomUUID().toString());
+
+        userService.save(user);
+        return "redirect:/index";
+    }
+
     @RequestMapping(value = "/logout")
     public String logout(HttpSession httpSession) {
         httpSession.removeAttribute("userID");
+        httpSession.removeAttribute("id");
+
         return "redirect:/index";
     }
 }
