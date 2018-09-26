@@ -18,8 +18,8 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    public void save(Board board,String userId){
-        board.setUser(userService.findByUserId(userId));
+    public void save(Board board,Long id){
+        board.setUser(userService.findById(id)); // 이부분
         boardRepository.save(board);
     }
 
