@@ -18,7 +18,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/form")
+    @RequestMapping(value = "/form",method = RequestMethod.GET)
     public String form(){
         return "loginForm";
     }

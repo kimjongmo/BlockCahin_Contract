@@ -59,27 +59,23 @@ public class BoardController {
             return "redirect:/board/write";
         }
         if(file.isEmpty()){
-            log.info("File not found : {}",file.getName());
+            log.info("File not found : {}",file.getOriginalFilename());
             model.addAttribute("messages", Message.FILE_NOT_FOUND);
             return "redirect:/board/write";
         }
-        log.info("FileName : {}, title : {}",file.getName(),title);
+        log.info("FileName : {}, title : {}",file.getOriginalFilename(),title);
         String userId = LoginSession.getName(session);
         Board board = new Board();
         board.setFileSize(file.getSize());
         board.setFileName(file.getName());
         board.setTitle(title);
         try{
-            File rootFolder = new File(UPLOAD_FOLDER);
+            File rootFolder = new File(UPLOAD_FOLDER+"/"+userId);
             if(!rootFolder.exists()){
                 rootFolder.mkdirs();
             }
-            File userFolder = new File(UPLOAD_FOLDER+"/"+userId);
-            if(!userFolder.exists()){
-                userFolder.mkdirs();
-            }
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(userFolder.getPath()+"/"+file.getOriginalFilename());
+            Path path = Paths.get(rootFolder.getPath()+"/"+file.getOriginalFilename());
             log.info("path : {}",path);
             Files.write(path,bytes);
 
