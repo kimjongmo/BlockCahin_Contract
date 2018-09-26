@@ -27,12 +27,13 @@ public class LoginController {
     @RequestMapping(value = "/access", method = RequestMethod.POST)
     public String login(LoginParam loginParam, HttpSession httpSession) {
         log.info("param={}", loginParam);
-        User user = userService.findById(loginParam.getId()); //이부분
+        User user = userService.findByUserId(loginParam.getUserId()); //이부분
 
         if (user.getUserId() == null)
             return "redirect:/login/form";
         if (user.getUserPassword().equals(loginParam.getUserPassword())) {
             httpSession.setAttribute("userID", user.getUserId());  //이부분은 id,pw로 로그인하는 부분
+            httpSession.setAttribute("id",user.getId()); //이부분
             return "redirect:/index";
         }
         return "redirect:/login/form";

@@ -17,8 +17,12 @@ public class UserService {
         return userRepository.findById(id).orElse(new User()); //여기
     }
 
+    public User findByUserId(String userId){
+        return userRepository.findByUserId(userId).orElse(new User());
+    }
+
     public boolean checkUserId(String userId){ //여기
-        return userRepository.existsById(userId); //여기
+        return userRepository.existsByUserId(userId); //여기
     }
 
     public void save(User user){
