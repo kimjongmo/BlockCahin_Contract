@@ -37,7 +37,7 @@ public class BoardController {
         if(!LoginSession.isLogin(session))
             return "redirect:/login/form";
 
-        List<Board> list = boardService.getList();
+        List<Board> list = boardService.getList(LoginSession.getId(session));
         model.addAttribute("board",list);
 
         return "board";

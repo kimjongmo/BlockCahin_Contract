@@ -5,6 +5,7 @@ import com.boot.contract.param.KakaoParam;
 import com.boot.contract.param.KakaoTempParam;
 import com.boot.contract.param.LoginParam;
 import com.boot.contract.service.UserService;
+import com.boot.contract.util.LoginSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
@@ -38,20 +40,24 @@ public class LoginController {
         if (user.getUserId() == null)
             return "redirect:/login/form";
         if (user.getUserPassword().equals(loginParam.getUserPassword())) {
-            httpSession.setAttribute("userID", user.getUserId());  //이부분은 id,pw로 로그인하는 부분
-            httpSession.setAttribute("id",user.getId()); //이부분
+            httpSession.setAttribute("userID", user.getUserId());
+            httpSession.setAttribute("id",user.getId());
             return "redirect:/index";
         }
         return "redirect:/login/form";
     }
 
     @RequestMapping(value = "/detail",method = RequestMethod.POST)
-    public String detail( KakaoTempParam kakaoTempParam, Model model){
-
+    public String detail( KakaoTempParam kakaoTempParam, Model model,HttpSession httpSession){
+        User user = userService.findByUserId(kakaoTempParam.getKakaoId());
         /*
-        * 유저 체크 : 성공 => 로그인 session 설정하고 index로 보내주기
-        *           : 실패 => 아래 로직 실행
-        * */
+         * 유저 체크 : 성공 => 로그인 session 설정하고 index로 보내주기
+         *           : 실패 => 아래 로직 실행
+         * */
+        if(user.getId()!=null){
+            LoginSession.setSession(httpSession,user);
+            return "redirect:/index";
+        }
         if(kakaoTempParam.getNickName().equals("undefined"))
             kakaoTempParam.setNickName("");
         if(kakaoTempParam.getKakaoEmail().equals("undefined"))
@@ -66,9 +72,6 @@ public class LoginController {
         model.addAttribute("temp",kakaoTempParam);
         return "detailForm";
     }
-
-
-
 
     @RequestMapping(value = "/joinForm")
     public String joinForm() {

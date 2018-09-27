@@ -14,8 +14,8 @@ public class BoardService {
     @Autowired
     private UserService userService;
 
-    public List<Board> getList(){
-        return boardRepository.findAll();
+    public List<Board> getList(Long id){
+        return boardRepository.findAllByUserId(id);
     }
 
     public void save(Board board,Long id){

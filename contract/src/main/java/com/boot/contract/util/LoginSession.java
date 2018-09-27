@@ -1,6 +1,7 @@
 package com.boot.contract.util;
 
 
+import com.boot.contract.model.User;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 import javax.servlet.http.HttpSession;
@@ -14,5 +15,10 @@ public class LoginSession {
 
     public static boolean isLogin(HttpSession session){
         return session.getAttribute("userID")==null?false:true;
+    }
+
+    public static void setSession(HttpSession session, User user){
+        session.setAttribute("userID",user.getUserId());
+        session.setAttribute("id",user.getId());
     }
 }
