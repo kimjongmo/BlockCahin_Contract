@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class PartTimeJobContract extends BaseEntity{
+public class Contract extends BaseEntity{
 
     @NotNull
     private String employerName;	//(갑) 성명
@@ -30,10 +30,10 @@ public class PartTimeJobContract extends BaseEntity{
 
 
 
-    public PartTimeJobContract(String employerName, String businessType, String companyName, String companyAddress,
-                               String employeeName, String employeeBirth, String employeeAddress, String personalNumber,
-                               String registNumber, String payKind, String pay, String day, String hour,
-                               String location, LocalDateTime contractalDay, LocalDateTime expiredDay) {
+    public Contract(String employerName, String businessType, String companyName, String companyAddress,
+                    String employeeName, String employeeBirth, String employeeAddress, String personalNumber,
+                    String registNumber, String payKind, String pay, String day, String hour,
+                    String location, LocalDateTime contractalDay, LocalDateTime expiredDay) {
         this.employerName = employerName;
         this.businessType = businessType;
         this.companyName = companyName;
