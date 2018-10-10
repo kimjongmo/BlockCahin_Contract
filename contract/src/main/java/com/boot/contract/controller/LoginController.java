@@ -40,8 +40,7 @@ public class LoginController {
         if (user.getUserId() == null)
             return "redirect:/login/form";
         if (user.getUserPassword().equals(loginParam.getUserPassword())) {
-            httpSession.setAttribute("userID", user.getUserId());
-            httpSession.setAttribute("id",user.getId());
+            LoginSession.setSession(httpSession,user);
             return "redirect:/index";
         }
         return "redirect:/login/form";
