@@ -20,4 +20,8 @@ public class User extends BaseEntity{
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Board> board;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Contract> contracts;
+
 }

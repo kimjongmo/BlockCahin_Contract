@@ -70,26 +70,24 @@
             <table class="table table-striped" style="text-align: center; border:1px solid #dddddd">
                 <thead>
                 <tr>
-                    <th style="background-color: #eeeeee; text-align: center;">번호</th>
-                    <th style="background-color: #eeeeee; text-align: center;">문서 제목</th>
+                    <th style="background-color: #eeeeee; text-align: center;">계약서 번호</th>
                     <th style="background-color: #eeeeee; text-align: center;">작성자</th>
                     <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+                    <th style="background-color: #eeeeee; text-align: center;">상태</th>
                 </tr>
-                <tr th:if="${board.size()}==0">
+                <tr th:if="${list.size()}==0">
                     <td colspan="4" align="center">등록된 게시물이 없습니다.</td>
                 </tr>
-                <tr th:unless="${board.size()}==0" th:each="list : ${board}" >
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getId()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getTitle()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getUser().getUserId()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getCreatedAt()}"></th>
+                <tr th:unless="${list.size()}==0" th:each="contract : ${list}" >
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getId()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserId()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getContractStatus().name()}"></th>
                 </tr>
                 </thead>
             </table>
-            <a href="/board/write"
+            <a href="/contract/write"
                class="btn btn-primary pull-right">+</a>
-            <a href="/contract/list"
-               class="btn btn-primary pull-right">계약서 작성하러 가기</a>
 
         </div>
     </div>
