@@ -3,7 +3,6 @@ package com.boot.contract.controller;
 import com.boot.contract.enumClass.ContractStatus;
 import com.boot.contract.model.Contract;
 import com.boot.contract.model.User;
-import com.boot.contract.repository.UserRepository;
 import com.boot.contract.service.ContractService;
 import com.boot.contract.service.UserService;
 import com.boot.contract.util.LoginSession;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ContractController {
         List<Contract> contracts = contractService.selectAll(id);
         model.addAttribute("list",contracts);
 
-        return "contract";
+        return "contractList";
     }
 
 
@@ -58,7 +58,6 @@ public class ContractController {
 
         Contract contract = new Contract();
 
-
         //Long id = session.getAttribute("id");
         Long id = LoginSession.getId(session);
         User user = userService.findById(id);
@@ -71,4 +70,19 @@ public class ContractController {
         return "redirect:/contract/list";
     }
 
+    @RequestMapping("/view")
+    public String view(@RequestParam Long id){
+
+        Contract contract = contractService.findById(id);
+
+        if(contract.getId()==null){
+            return "redirect:/contract/list";
+        }
+
+        if(ContractStatus.UNREGISTERED.name().equals(contract.getContractStatus().name())){
+            return "redirect:/contract/checkEmail";
+        }else{
+            return "albaContract";
+        }
+    }
 }

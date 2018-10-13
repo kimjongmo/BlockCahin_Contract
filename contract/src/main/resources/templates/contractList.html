@@ -74,15 +74,18 @@
                     <th style="background-color: #eeeeee; text-align: center;">작성자</th>
                     <th style="background-color: #eeeeee; text-align: center;">작성일</th>
                     <th style="background-color: #eeeeee; text-align: center;">상태</th>
+                    <th style="background-color: #eeeeee; text-align: center;">보기</th>
                 </tr>
                 <tr th:if="${list.size()}==0">
                     <td colspan="4" align="center">등록된 게시물이 없습니다.</td>
                 </tr>
                 <tr th:unless="${list.size()}==0" th:each="contract : ${list}" >
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getId()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserId()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserId()}"> </th>
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getContractStatus().name()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getContractStatus().getStatus()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;"><a th:href="@{http://localhost:8181/contract/view(id=${contract.getId()})}">view</a></th>
+
                 </tr>
                 </thead>
             </table>
@@ -93,14 +96,6 @@
     </div>
 </div>
 
-<div align="center">
-    </div>
-    <form name="readFrm" method="get">
-        <input type="hidden" name="pagefile" value="board">
-        <input type="hidden" name="idx"> <input type="hidden" name="nowPage" value="<%=nowPage%>">
-        <input type="hidden" name="keyField" value="<%=keyField%>">
-        <input type="hidden" name="keyWord" value="<%=keyWord%>">
-    </form>
-</div>
+
 </body>
 </html>
