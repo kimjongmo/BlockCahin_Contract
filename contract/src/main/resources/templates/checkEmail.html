@@ -9,8 +9,9 @@
 
 </head>
 <body>
-<form action="/mail/send" method="get">
+<form action="/email/send" method="get">
     <div class="form-group">
+        <input type="hidden" name="id" th:value="*{val}"/> <!-- id부분 -->
         <label for="exampleInputEmail1">Email address</label>
         <input name = "to" type="email" class="col-lg-2" id="exampleInputEmail1" width="10" aria-describedby="emailHelp" placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">인증받을 주소를 입력해주세요.</small>

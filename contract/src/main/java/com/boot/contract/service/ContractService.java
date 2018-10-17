@@ -19,4 +19,6 @@ public class ContractService {
     public void save(Contract contract){
         contractRepository.save(contract);
     }
+
+    public Contract findById(Long id){ return contractRepository.findById(id).orElse(new Contract());}
 }

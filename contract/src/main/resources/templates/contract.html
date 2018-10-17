@@ -74,6 +74,7 @@
                     <th style="background-color: #eeeeee; text-align: center;">작성자</th>
                     <th style="background-color: #eeeeee; text-align: center;">작성일</th>
                     <th style="background-color: #eeeeee; text-align: center;">상태</th>
+                    <th style="background-color: #eeeeee; text-align: center;">보기</th>
                 </tr>
                 <tr th:if="${list.size()}==0">
                     <td colspan="4" align="center">등록된 게시물이 없습니다.</td>
@@ -83,6 +84,7 @@
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserId()}"></th>
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getContractStatus().name()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;"><a th:href="@{http://localhost:8181/contract/view(id=${contract.getId()})}">view</a></th>
                 </tr>
                 </thead>
             </table>

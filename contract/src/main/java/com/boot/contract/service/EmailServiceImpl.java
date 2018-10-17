@@ -24,11 +24,11 @@ public class EmailServiceImpl implements EmailService {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
         try {
             if (from != null) {
-                mimeMessageHelper.setFrom("yoobinlee25@gmail.com");
+                mimeMessageHelper.setFrom(from);
             }
-            mimeMessageHelper.setSubject("test");
-            mimeMessageHelper.setText("test");
-            mimeMessageHelper.setTo("yoobinlee25@gmail.com");
+            mimeMessageHelper.setSubject(title);
+            mimeMessageHelper.setText(body,true);
+            mimeMessageHelper.setTo(to);
             this.javaMailSender.send(message);
         } catch (MessagingException messageException) {
             // You could also 'throw' this exception. I am not a fan of checked exceptions.
