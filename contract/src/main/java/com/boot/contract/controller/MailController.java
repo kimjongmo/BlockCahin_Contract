@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 @RestController
@@ -42,7 +44,9 @@ public class MailController {
         if(contract.getUuid().equals(uuid)){
             contract.setContractStatus(ContractStatus.AUTHORIZED);
             contractService.save(contract);
-            return "인증이 완료되었습니다.";
+            String s = "[확인]";
+            String confirm = "이메일이 인증되었습니다. <a href=http://localhost:8181/contract/list>"+s+"</a>";
+            return confirm;
         }
         return "잘못된 접근입니다.";
     }
