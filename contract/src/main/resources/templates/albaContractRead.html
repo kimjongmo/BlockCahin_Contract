@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
 </head>
-<form action="/contract/create" th:object="${contract}">
+<form action="/contract/create" th:object="${contract}" method="get">
     <div align="left">
         <h2>아르바이트 계약서</h2>
     </div>
@@ -59,7 +59,7 @@
             <tr height="30">
                 <td>
                     &emsp;(1)임금 :
-                    <p th:text="*{getPayKind()}"> </p>
+                     <p th:text="*{getPayKind()}"> </p>
 
                     , 페이 : <input type="number" th:value="*{getPay()}">
 
@@ -90,7 +90,9 @@
     </div>
     <hr>
     <br>
-    <input type="button" value="확인" onclick="window.location.href='http://localhost:8181/contract/list'">
+    <input type="submit" value="수락">
+    <input type="button" value="취소">
+    <input type="hidden" name="id" th:value="*{getId()}"/>
 </form>
 </body>
 </html>

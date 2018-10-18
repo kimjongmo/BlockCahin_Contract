@@ -2,12 +2,14 @@ package com.boot.contract.service;
 
 import com.boot.contract.ifs.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -21,7 +23,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void send(String from, String to, String title, String body) {
         MimeMessage message = this.javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
+
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message,"utf-8");
         try {
             if (from != null) {
                 mimeMessageHelper.setFrom(from);
@@ -31,8 +34,25 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo(to);
             this.javaMailSender.send(message);
         } catch (MessagingException messageException) {
-            // You could also 'throw' this exception. I am not a fan of checked exceptions.
-            // If you want to go that route, then just update this method and the interface.
+            throw new RuntimeException(messageException);
+        }
+    }
+
+    public void sendFile(String from, String to, String title, String body,String path) {
+        MimeMessage message = this.javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message,true,"utf-8");
+            if (from != null) {
+                mimeMessageHelper.setFrom(from);
+            }
+            mimeMessageHelper.setSubject(title);
+            mimeMessageHelper.setText(body);
+            mimeMessageHelper.setTo(to);
+            FileSystemResource res = new FileSystemResource(new File(path));
+            mimeMessageHelper.addAttachment(res.getFilename(),res);
+            this.javaMailSender.send(message);
+        } catch (MessagingException messageException) {
             throw new RuntimeException(messageException);
         }
     }
