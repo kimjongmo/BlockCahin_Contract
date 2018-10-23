@@ -30,13 +30,13 @@ public class MailController {
 
         Contract contract = contractService.findById(id);
 
-        String s = "http://localhost:8181/email/auth?id="+id+"&uuid="+contract.getUuid();
+        String s = "http://210.123.254.206:8181/email/auth?id="+id+"&uuid="+contract.getUuid();
         String body = "<a href=\""+s+"\">"+s+"</a>";
         emailServiceImpl.send(from, to, "Contract Master 인증 메일입니다.",body);
         contract.setContractStatus(ContractStatus.UNAUTHORIZED);
         contract.setEmployerEmail(to);
         contractService.save(contract); //db에 저장
-        return to+"로 인증 메일을 발송하였습니다. <a href=http://localhost:8181/contract/list>확인</a>";
+        return to+"로 인증 메일을 발송하였습니다. <a href=http://210.123.254.206:8181/contract/list>확인</a>";
     }
 
     //근로자 송신용
@@ -45,7 +45,7 @@ public class MailController {
 
         Contract contract = contractService.findById(id);
 
-        String url ="http://localhost:8181/contract/contractRead?id="+id+"&uuid="+contract.getUuid();
+        String url ="http://210.123.254.206:8181/contract/contractRead?id="+id+"&uuid="+contract.getUuid();
         String body = "<p>"+contract.getEmployerName()+"님께서 계약서를 전송하였습니다. 확인부탁드립니다.</p></br>" +
                 "<a href=\""+url+"\">확인하러 가기</a>";
 
@@ -54,7 +54,7 @@ public class MailController {
         contract.setEmployeeEmail(to);
         contractService.save(contract);
 
-        return to+"에게 승인 메일을 발송하였습니다. <a href=http://localhost:8181/contract/list>확인</a>";
+        return to+"에게 승인 메일을 발송하였습니다. <a href=http://210.123.254.206:8181/contract/list>확인</a>";
     }
 
     @RequestMapping(value = "/sendFile/{id}",method = RequestMethod.GET)
@@ -80,7 +80,7 @@ public class MailController {
             contract.setContractStatus(ContractStatus.AUTHORIZED);
             contractService.save(contract);
             String s = "[확인]";
-            String confirm = "이메일이 인증되었습니다. <a href=http://localhost:8181/contract/list>"+s+"</a>";
+            String confirm = "이메일이 인증되었습니다. <a href=http://210.123.254.206:8181/contract/list>"+s+"</a>";
             return confirm;
         }
         return "잘못된 접근입니다.";
