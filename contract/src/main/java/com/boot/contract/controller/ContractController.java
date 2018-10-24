@@ -6,6 +6,7 @@ import com.boot.contract.model.User;
 import com.boot.contract.param.ContractParam;
 import com.boot.contract.service.ContractService;
 import com.boot.contract.service.UserService;
+import com.boot.contract.util.ChainCode;
 import com.boot.contract.util.ContractGenerator;
 import com.boot.contract.util.FileHashExtractor;
 import com.boot.contract.util.LoginSession;
@@ -33,6 +34,8 @@ public class ContractController {
     private ContractService contractService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ChainCode chainCode;
 
     @RequestMapping("/list")
     public String contractList(HttpSession session, Model model) {
@@ -158,9 +161,10 @@ public class ContractController {
         try {
             ContractGenerator.create(contract, contract.getId().toString());
             log.info("File create");
-            String hashValue = FileHashExtractor.extractFileHashSHA256(contract.getId().toString());
+            String hashValue = FileHashExtractor.extractFileHashSHA256("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
             log.info("hashValue extract!");
             contract.setHashValue(hashValue);
+            chainCode.insertBlock("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
         } catch (Exception e) {
             e.printStackTrace();
         }

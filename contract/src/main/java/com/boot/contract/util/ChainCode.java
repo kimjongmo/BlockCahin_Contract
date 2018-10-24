@@ -38,6 +38,7 @@ public class ChainCode {
         String EXPECTED_EVENT_NAME = "event";
 
         try {
+
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
             // Enroll Admin to Org1MSP
