@@ -45,76 +45,122 @@
 <!-- Navigation -->
 <!-- 3. 상단메뉴 네비게이션 바 이용 -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/">Contract Master</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul th:if="${session.userID}==null" class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="btn  btn btn-sm"
-                       href="/login/form">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn  btn btn-sm"
-                       href="/login/joinForm"
-                       role="button">회원가입</a>
-                </li>
-            </ul>
+    <a class="navbar-brand js-scroll-trigger" href="/index">
+        <span style="font-sizw: 1.0em; color: orange;">Contract Master</span></a>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul th:if="${session.userID}==null" class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/form">로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/joinForm"
+                   role="button">회원가입</a>
+            </li>
+        </ul>
 
-            <!-- userID 값이 있을 때 : 로그인 한 상태 -->
-            <ul th:unless="${session.userID}==null" class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="/board/list">계약서
-                        작성</a>
-                </li>
-                <li class="nav-item">
-                    <font size="2em" color="orange"><p th:text="${session.userID}">님</p></font>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a class="btn  btn btn-sm"
-                       href="/login/logout"
-                       role="button">로그아웃</a>
-                </li>
-            </ul>
-        </div>
+        <!-- userID 값이 있을 때 : 로그인 한 상태 -->
+        <ul th:unless="${session.userID}==null" class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger"
+                   href="/board/list">계약서
+                    작성</a>
+            </li>
+            <li class="nav-item">
+                <font size="2em" color="orange"><p th:text="${session.userID}">님</p></font>
+            </li>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/logout"
+                   role="button">로그아웃</a>
+            </li>
+        </ul>
+    </div>
     </div>
 </nav>
-<header class="masthead text-center text-white d-flex">
-    <div class="container my-auto">
-        <div class="row">
-            <div class="col-lg-10 mx-auto"></div>
-            <div class="col-lg-8 mx-auto">
-                <h1 class="text-uppercase">
-                    <strong>누구나 검증 가능합니다.</strong>
-                </h1>
-                <hr>
-            </div>
-            <div class="col-lg-7 mx-auto">
-                <p class="text-faded mb-2">계약서의 번호를 입력하세요</p>
-                <form action="/">
-                    <div class="input-group stylish-input-group">
-                        <select class="custom-select"  >
-                            <option selected>파일 종류</option>
-                            <option value="1">계약서</option>
-                            <option value="2">일반 파일</option>
-                        </select>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <button type="submit" class="btn btn-secondary btn-lg">
-                            검색
-                        </button>
-                    </div>
-                </form>
-            </div>
+<br/>
+<br/>
+<!--<header class="masthead text-center text-white d-flex">-->
+<div class="container my-auto">
+    <div>
+        <div class="col-lg-7 mx-auto">
+            <p class="text-dark mb-2">업로드가 완료된 파일, 완료된 계약서만 검사 가능합니다.</p>
+            <form action="/validate/search" method="get">
+                <div class="input-group stylish-input-group w-50-align-center">
+                    <select class="custom-select-lg" name="type">
+                        <option selected>파일 종류</option>
+                        <option value="contract">계약서</option>
+                        <option value="file">일반 파일</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <input type="text" class="form-control w-25" placeholder="파일의 번호를 입력하세요" name="id">
+                    <button type="submit" class="btn btn-secondary btn-lg">
+                        검색
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-</header>
+</div>
+<br/>
+<br/>
+<!--</header>-->
 
-
+<table class="table table-striped" style="text-align: center; border:1px solid #dddddd"
+       th:if="${contract.getId()}!=null">
+    <thead>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;">계약서 번호</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+        <th style="background-color: #eeeeee; text-align: center;">상태</th>
+        <th style="background-color: #eeeeee; text-align: center;">검사</th>
+    </tr>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getId()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserName()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;"
+            th:text="${contract.getContractStatus().getStatus()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;">
+            <button class="btn btn-primary pull-right-align-center" th:onclick="'checkContract(\''+${contract.getId()}+'\');'">검사하기</button>
+        </th>
+    </tr>
+    </thead>
+</table>
+<table class="table table-striped" style="text-align: center; border:1px solid #dddddd" th:if="${board.getId()}!=null">
+    <thead>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;">번호</th>
+        <th style="background-color: #eeeeee; text-align: center;">문서 제목</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+        <th style="background-color: #eeeeee; text-align: center;">검사</th>
+    </tr>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getId()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getTitle()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getUser().getUserName()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getCreatedAt()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;">
+            <button class="btn btn-primary pull-right-align-center" th:onclick="'checkFile(\''+${board.getId()}+'\');'">검사하기</button>
+        </th>
+    </tr>
+    </thead>
+</table>
+<script>
+    function checkFile(id) {
+        var url = "/checkFile.html";
+        var options = "width=500 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;";
+        window.open(url + "?id="+id, "new", options);
+    }
+    function checkContract(id) {
+        var url = "/checkContract.html";
+        var options = "width=500 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;";
+        window.open(url + "?id="+id, "new", options);
+    }
+</script>
 </body>
 </html>

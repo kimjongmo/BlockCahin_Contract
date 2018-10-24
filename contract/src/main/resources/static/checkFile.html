@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var temp = location.href.split("?");
+        var data = temp[1].split("=");
+        document.forms["myForm"]["id"].value=data[1];
+    </script>
+</head>
+<body>
+<form name="myForm" action="/validate/check">
+    비교할 파일을 선택해주세요 : <input type="file" name=""/>
+    <input type="hidden" name="id"/>
+    <input type="hidden" name="type" value="file"/>
+</form>
+</body>
+</html>

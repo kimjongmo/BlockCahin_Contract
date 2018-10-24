@@ -43,9 +43,9 @@
             </tr>
             <tr>
                 <td><strong>주 소</strong></td>
-                <td><input type="text" th:value="*{getEmployeeAddress()}"></td>
+                <td><input type="text" th:value="*{getEmployeeAddress()}" readonly></td>
                 <td><strong>주민등록번호</strong></td>
-                <td><input type="text" th:value="*{getPersonalNumber()}"></td>
+                <td><input type="text" th:value="*{getPersonalNumber()}" readonly></td>
             </tr>
         </table>
     </div>
@@ -59,9 +59,9 @@
             <tr height="30">
                 <td>
                     &emsp;(1)임금 :
-                    <p th:text="*{getPayKind()}"> </p>
+                    <p th:text="*{getPayKind()}" readonly> </p>
 
-                    , 페이 : <input type="number" th:value="*{getPay()}">
+                    , 페이 : <input type="number" th:value="*{getPay()}" readonly>
 
                 </td>
             </tr>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript">
+        var temp = location.href.split("?");
+        var data = temp[1].split("=");
+        document.forms["myForm"]["id"].value = data[1];
+        function check() {
+            if (document.forms["myForm"]["file"].value == "" || document.forms["myForm"]["file"].value == null) {
+                alert("파일을 선택해주세요.");
+            }else {
+                document.forms["myForm"].submit();
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="myForm" action="/validate/check" method="get">
+    비교할 파일을 선택해주세요 : <input type="file" name="file"/>
+    <input type="hidden" name="id"/>
+    <input type="hidden" name="type" value="contract"/>
+    <button  onclick="check()">검증하기</button>
+</form>
+</body>
+</html>
