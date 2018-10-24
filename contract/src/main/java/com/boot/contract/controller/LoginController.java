@@ -55,7 +55,7 @@ public class LoginController {
          * */
         if(user.getId()!=null){
             LoginSession.setSession(httpSession,user);
-            return "redirect:/index";
+            return "redirect:/";
         }
         if(kakaoTempParam.getNickName().equals("undefined"))
             kakaoTempParam.setNickName("");

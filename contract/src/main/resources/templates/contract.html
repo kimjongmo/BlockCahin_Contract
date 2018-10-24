@@ -43,11 +43,11 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-                <a class="btn  btn btn-sm" href="/board/write" role="button">계약서 작성</a>
+                <a class="btn  btn btn-sm" href="/board/list" role="button">파일 작성</a>
             </li>
             <li class="nav-item">
                 <a class="btn  btn btn-sm"
-                   href="../../../../../../../Desktop/BlockCahin_Contract-master/BlockCahin_Contract-master/BBSTEST/WebContent/validation.jsp"
+                   href="/validate/pages"
                    role="button">검증하기</a>
             </li>
             <li class="nav-item">
@@ -84,7 +84,7 @@
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserId()}"></th>
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
                     <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getContractStatus().getStatus()}"></th>
-                    <th style="background-color: #eeeeee; text-align: center;"><a th:href="@{http://210.123.254.206:8181/contract/view(id=${contract.getId()})}">view</a></th>
+                    <th style="background-color: #eeeeee; text-align: center;"><a th:href="@{http://localhost:8181/contract/view(id=${contract.getId()})}">view</a></th>
                 </tr>
                 </thead>
             </table>

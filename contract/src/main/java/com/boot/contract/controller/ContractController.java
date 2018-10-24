@@ -12,7 +12,6 @@ import com.boot.contract.util.FileHashExtractor;
 import com.boot.contract.util.LoginSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -164,7 +163,7 @@ public class ContractController {
             String hashValue = FileHashExtractor.extractFileHashSHA256("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
             log.info("hashValue extract!");
             contract.setHashValue(hashValue);
-            chainCode.insertBlock("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
+            //chainCode.insertBlock("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
         } catch (Exception e) {
             e.printStackTrace();
         }
