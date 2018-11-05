@@ -20,9 +20,15 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 public class ContractGenerator {
 
-    final static String SAVE_DIRECTORU="c:/_contract/";
+    final static String SAVE_DIRECTORU="c:/_contract";
     public static void create(Contract contract,String fileName) throws IOException{
-        FileOutputStream out = new FileOutputStream(new File(SAVE_DIRECTORU+"/"+fileName+".docx"));
+        String path  =SAVE_DIRECTORU+"/"+contract.getUser().getUserId();
+        File directory = new File(path);
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+
+        FileOutputStream out = new FileOutputStream(new File(SAVE_DIRECTORU+"/"+contract.getUser().getUserId()+"/"+fileName+".docx"));
         XWPFDocument document = new XWPFDocument();
 
         // 계약서 이름

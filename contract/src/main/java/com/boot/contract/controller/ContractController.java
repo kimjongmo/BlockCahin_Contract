@@ -6,12 +6,12 @@ import com.boot.contract.model.User;
 import com.boot.contract.param.ContractParam;
 import com.boot.contract.service.ContractService;
 import com.boot.contract.service.UserService;
+import com.boot.contract.util.ChainCode;
 import com.boot.contract.util.ContractGenerator;
 import com.boot.contract.util.FileHashExtractor;
 import com.boot.contract.util.LoginSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +33,8 @@ public class ContractController {
     private ContractService contractService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ChainCode chainCode;
 
     @RequestMapping("/list")
     public String contractList(HttpSession session, Model model) {
@@ -158,9 +160,10 @@ public class ContractController {
         try {
             ContractGenerator.create(contract, contract.getId().toString());
             log.info("File create");
-            String hashValue = FileHashExtractor.extractFileHashSHA256(contract.getId().toString());
+            String hashValue = FileHashExtractor.extractFileHashSHA256("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
             log.info("hashValue extract!");
             contract.setHashValue(hashValue);
+            //chainCode.insertBlock("c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx");
         } catch (Exception e) {
             e.printStackTrace();
         }

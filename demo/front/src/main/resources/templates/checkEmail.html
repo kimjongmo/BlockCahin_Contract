@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>이메일 확인 페이지</title>
+
+</head>
+<body>
+<form action="/email/send" method="get">
+    <div class="form-group">
+        <input type="hidden" name="id" th:value="*{val}"/> <!-- id부분 -->
+        <label for="exampleInputEmail1">Email address</label>
+        <input name = "to" type="email" class="col-lg-2" id="exampleInputEmail1" width="10" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">인증받을 주소를 입력해주세요.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">인증하기</button>
+
+</form>
+</body>
+</html>

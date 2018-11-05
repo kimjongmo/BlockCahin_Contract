@@ -23,4 +23,8 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    public Board findById(Long id){
+        return boardRepository.findById(id).orElse(new Board());
+    }
+
 }

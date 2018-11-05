@@ -6,13 +6,12 @@ import java.security.MessageDigest;
 
 public class FileHashExtractor {
     //파일 경로
-    public static String extractFileHashSHA256(String fileName) throws Exception {
+    public static String extractFileHashSHA256(String filePath) throws Exception {
 
-        String SAVE_DIRECTORU="c:/_contract/";
         String SHA = "";
         int buff = 16384;
         try {
-            RandomAccessFile file = new RandomAccessFile(SAVE_DIRECTORU+fileName+".docx", "r");
+            RandomAccessFile file = new RandomAccessFile(filePath, "r");
 
             MessageDigest hashSum = MessageDigest.getInstance("SHA-256");
 

@@ -4,6 +4,7 @@ import com.boot.contract.enumClass.ContractStatus;
 import com.boot.contract.model.Contract;
 import com.boot.contract.service.ContractService;
 import com.boot.contract.service.EmailServiceImpl;
+import com.boot.contract.util.ChainCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,12 @@ import java.util.UUID;
 public class MailController {
 
     @Autowired
-    EmailServiceImpl emailServiceImpl;
+    private EmailServiceImpl emailServiceImpl;
 
     @Autowired
-    ContractService contractService;
+    private ContractService contractService;
+
+
 
     //고용자 송신용
     @RequestMapping(value = "/send",method = RequestMethod.GET)
@@ -60,11 +63,10 @@ public class MailController {
     @RequestMapping(value = "/sendFile/{id}",method = RequestMethod.GET)
     public String sendFile(@PathVariable Long id ,@Value("${mail.user}") String from){
         Contract contract = contractService.findById(id);
-        String path = "c:/_contract/"+id+".docx";
+        String path = "c:/_contract/"+contract.getUser().getUserId()+"/"+id+".docx";
         String employerEmail = contract.getEmployerEmail();
         String employeeEmail = contract.getEmployeeEmail();
         LocalDateTime time1 = contract.getUpdatedAt();
-//        String time = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(time1);
 
         String body ="계약이 성립되었습니다. 계약 번호는 "+id+" 입니다.";
         emailServiceImpl.sendFile(from,employerEmail,"[Contract Master]계약이 성립되었습니다",body,path);
