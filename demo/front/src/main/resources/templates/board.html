@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <!-- 1. 부트스트랩에서 가져온 css  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Contract Master</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/creative.min.css" rel="stylesheet">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>계약서 웹페이지</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="/index">
+        <span style="font-sizw: 1.0em; color: orange;">Contract Master</span></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="btn  btn btn-sm" href="/contract/list" role="button">계약서 작성</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/validate/pages"
+                   role="button">검증하기</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm" ><p th:text="${session.userID}">님</p></a>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/logout"
+                   role="button">로그아웃</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<!-- 2. 문서파일 올리는 게시판 부분  -->
+<div class="jumbotron" style="padding-top: 20px;">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped" style="text-align: center; border:1px solid #dddddd">
+                <thead>
+                <tr>
+                    <th style="background-color: #eeeeee; text-align: center;">번호</th>
+                    <th style="background-color: #eeeeee; text-align: center;">문서 제목</th>
+                    <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+                    <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+                </tr>
+                <tr th:if="${board.size()}==0">
+                    <td colspan="4" align="center">등록된 게시물이 없습니다.</td>
+                </tr>
+                <tr th:unless="${board.size()}==0" th:each="list : ${board}" >
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getId()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getTitle()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getUser().getUserId()}"></th>
+                    <th style="background-color: #eeeeee; text-align: center;" th:text="${list.getCreatedAt()}"></th>
+                </tr>
+                </thead>
+            </table>
+            <a href="/board/write"
+               class="btn btn-primary pull-right">+</a>
+            <a href="/contract/list"
+               class="btn btn-primary pull-right">계약서 작성하러 가기</a>
+
+        </div>
+    </div>
+</div>
+
+<div align="center">
+    </div>
+    <form name="readFrm" method="get">
+        <input type="hidden" name="pagefile" value="board">
+        <input type="hidden" name="idx"> <input type="hidden" name="nowPage" value="<%=nowPage%>">
+        <input type="hidden" name="keyField" value="<%=keyField%>">
+        <input type="hidden" name="keyWord" value="<%=keyWord%>">
+    </form>
+</div>
+</body>
+</html>

@@ -7,27 +7,30 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-/.idea/**/workspace.xml
-/.idea/**/tasks.xml
-/.idea/**/usage.statistics.xml
-/.idea/**/dictionaries
-/.idea/**/shelf
+demo/.idea/**/workspace.xml
+demo/.idea/**/tasks.xml
+demo/.idea/**/usage.statistics.xml
+demo/.idea/**/dictionaries
+demo/.idea/**/shelf
 
 # Generated files
-/.idea/**/contentModel.xml
+demo/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-/.idea/**/dataSources/
-/.idea/**/dataSources.ids
-/.idea/**/dataSources.local.xml
-/.idea/**/sqlDataSources.xml
-/.idea/**/dynamic.xml
-/.idea/**/uiDesigner.xml
-/.idea/**/dbnavigator.xml
+demo/.idea/**/dataSources/
+demo/.idea/**/dataSources.ids
+demo/.idea/**/dataSources.local.xml
+demo/.idea/**/sqlDataSources.xml
+demo/.idea/**/dynamic.xml
+demo/.idea/**/uiDesigner.xml
+demo/.idea/**/dbnavigator.xml
 
 # Gradle
-/.idea/**/gradle.xml
-/.idea/**/libraries
+demo/.gradle/
+demo/.idea/**/gradle.xml
+demo/.idea/**/libraries
+demo/.idea/misc.xml
+demo/.idea/vcs.xml
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -38,37 +41,37 @@
 # .idea/modules
 
 # CMake
-/cmake-build-*/
+demo/cmake-build-*/
 
 # Mongo Explorer plugin
-/.idea/**/mongoSettings.xml
+demo/.idea/**/mongoSettings.xml
 
 # File-based project format
-/*.iws
+demo/*.iws
 
 # IntelliJ
-/out/
+demo/out/
 
 # mpeltonen/sbt-idea plugin
-/.idea_modules/
+demo/.idea_modules/
 
 # JIRA plugin
-/atlassian-ide-plugin.xml
+demo/atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-/.idea/replstate.xml
+demo/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
-/com_crashlytics_export_strings.xml
-/crashlytics.properties
-/crashlytics-build.properties
-/fabric.properties
+demo/com_crashlytics_export_strings.xml
+demo/crashlytics.properties
+demo/crashlytics-build.properties
+demo/fabric.properties
 
 # Editor-based Rest Client
-/.idea/httpRequests
+demo/.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
-/.idea/caches/build_file_checksums.ser
+demo/.idea/caches/build_file_checksums.ser
 
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
@@ -79,35 +82,35 @@
 # *.ipr
 
 # Sonarlint plugin
-/.idea/sonarlint
+demo/.idea/sonarlint
 
 ### Java ###
 # Compiled class file
-/*.class
+demo/*.class
 
 # Log file
-/*.log
+demo/*.log
 
 # BlueJ files
-/*.ctxt
+demo/*.ctxt
 
 # Mobile Tools for Java (J2ME)
-/.mtj.tmp/
+demo/.mtj.tmp/
 
 # Package Files #
-/*.jar
-/*.war
-/*.nar
-/*.ear
-/*.zip
-/*.tar.gz
-/*.rar
+demo/*.jar
+demo/*.war
+demo/*.nar
+demo/*.ear
+demo/*.zip
+demo/*.tar.gz
+demo/*.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-/hs_err_pid*
+demo/hs_err_pid*
 
 ### Java-Web ###
 ## ignoring target file
-/target/
+demo/target/
 
 # End of https://www.gitignore.io/api/java,java-web,intellij

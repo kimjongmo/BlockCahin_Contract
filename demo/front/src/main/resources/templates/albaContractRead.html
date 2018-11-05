@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+<form action="/contract/create" th:object="${contract}" method="get">
+    <div align="left">
+        <h2>아르바이트 계약서</h2>
+    </div>
+    <hr>
+    <div align="left">
+        <table>
+            <tr>
+                <td><h3>사용자 (갑)</h3></td>
+            </tr>
+            <tr>
+                <td><strong>성 명</strong></td>
+                <td><input type="text" th:value="*{getEmployerName()}" readonly></td>
+                <td><strong>사업 종류</strong></td>
+                <td><input type="text" th:value="*{getBusinessType()}" readonly></td>
+            </tr>
+            <tr>
+                <td><strong>사업체명</strong></td>
+                <td><input type="text" th:value="*{getCompanyName()}" readonly></td>
+                <td><strong>소재지</strong></td>
+                <td><input type="text" th:value="*{getCompanyAddress()}" readonly></td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div align="left">
+        <table>
+            <tr>
+                <td><h3>근로자 (을)</h3></td>
+            </tr>
+            <tr>
+                <td><strong>성 명</strong></td>
+                <td><input type="text" th:value="*{getEmployeeName()}" readonly></td>
+                <td><strong>생년 월일</strong></td>
+                <td><input type="text" th:value="*{getEmployeeBirth()}" readonly></td>
+            </tr>
+            <tr>
+                <td><strong>주 소</strong></td>
+                <td><input type="text" th:value="*{getEmployeeAddress()}"></td>
+                <td><strong>주민등록번호</strong></td>
+                <td><input type="text" th:value="*{getPersonalNumber()}"></td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div align="left">
+        <table>
+            <h3>내 용</h3>
+            <tr height="30">
+                <td><strong>취업(근로) 조건</strong></td>
+            </tr>
+            <tr height="30">
+                <td>
+                    &emsp;(1)임금 :
+                     <p th:text="*{getPayKind()}"> </p>
+
+                    , 페이 : <input type="number" th:value="*{getPay()}">
+
+                </td>
+            </tr>
+            <tr height="30">
+                <td>
+                    &emsp;(2)근로 조건 :
+                    주 <input type="number" th:value="*{getDay()}" readonly>일 /
+                    일 <input type="number" th:value="*{getHour()}" readonly> 시간
+                </td>
+            </tr>
+            <tr height="30">
+                <td>
+                    &emsp;(2)근로 장소 :
+                    <input type="text" th:value="*{getLocation()}" readonly>
+                </td>
+            </tr>
+            <tr height="30">
+                <td><strong>계약 기간</strong></td>
+            </tr>
+            <tr height="30">
+                <td>
+                    &emsp;기 간 : <input type="datetime-local" th:value="*{getContractDay()}" readonly>&nbsp;~&nbsp;<input type="datetime-local" th:value="*{getExpiredDay()}" readonly>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <br>
+    <input type="submit" value="수락">
+    <input type="button" value="취소">
+    <input type="hidden" name="id" th:value="*{getId()}"/>
+</form>
+</body>
+</html>
