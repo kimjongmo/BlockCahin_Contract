@@ -1,0 +1,116 @@
+
+# Created by https://www.gitignore.io/api/java,java-web,intellij
+# Edit at https://www.gitignore.io/?templates=java,java-web,intellij
+
+### Intellij ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+demo/.idea/**/workspace.xml
+demo/.idea/**/tasks.xml
+demo/.idea/**/usage.statistics.xml
+demo/.idea/**/dictionaries
+demo/.idea/**/shelf
+
+# Generated files
+demo/.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+demo/.idea/**/dataSources/
+demo/.idea/**/dataSources.ids
+demo/.idea/**/dataSources.local.xml
+demo/.idea/**/sqlDataSources.xml
+demo/.idea/**/dynamic.xml
+demo/.idea/**/uiDesigner.xml
+demo/.idea/**/dbnavigator.xml
+
+# Gradle
+demo/.gradle/
+demo/.idea/**/gradle.xml
+demo/.idea/**/libraries
+demo/.idea/misc.xml
+demo/.idea/vcs.xml
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+
+# CMake
+demo/cmake-build-*/
+
+# Mongo Explorer plugin
+demo/.idea/**/mongoSettings.xml
+
+# File-based project format
+demo/*.iws
+
+# IntelliJ
+demo/out/
+
+# mpeltonen/sbt-idea plugin
+demo/.idea_modules/
+
+# JIRA plugin
+demo/atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+demo/.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+demo/com_crashlytics_export_strings.xml
+demo/crashlytics.properties
+demo/crashlytics-build.properties
+demo/fabric.properties
+
+# Editor-based Rest Client
+demo/.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+demo/.idea/caches/build_file_checksums.ser
+
+### Intellij Patch ###
+# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+
+# *.iml
+# modules.xml
+# .idea/misc.xml
+# *.ipr
+
+# Sonarlint plugin
+demo/.idea/sonarlint
+
+### Java ###
+# Compiled class file
+demo/*.class
+
+# Log file
+demo/*.log
+
+# BlueJ files
+demo/*.ctxt
+
+# Mobile Tools for Java (J2ME)
+demo/.mtj.tmp/
+
+# Package Files #
+demo/*.jar
+demo/*.war
+demo/*.nar
+demo/*.ear
+demo/*.zip
+demo/*.tar.gz
+demo/*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+demo/hs_err_pid*
+
+### Java-Web ###
+## ignoring target file
+demo/target/
+
+# End of https://www.gitignore.io/api/java,java-web,intellij

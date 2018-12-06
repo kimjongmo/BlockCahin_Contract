@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Contract Master</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+
+
+    <!--
+    -->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!-- Plugin CSS -->
+    <link href="/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/creative.min.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/js/creative.min.js"></script>
+</head>
+<body id="page-top">
+
+<!-- Navigation -->
+<!-- 3. 상단메뉴 네비게이션 바 이용 -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="/index">
+        <span style="font-sizw: 1.0em; color: orange;">Contract Master</span></a>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul th:if="${session.userID}==null" class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/form">로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/joinForm"
+                   role="button">회원가입</a>
+            </li>
+        </ul>
+
+        <!-- userID 값이 있을 때 : 로그인 한 상태 -->
+        <ul th:unless="${session.userID}==null" class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger"
+                   href="/board/list">계약서
+                    작성</a>
+            </li>
+            <li class="nav-item">
+                <font size="2em" color="orange"><p th:text="${session.userID}">님</p></font>
+            </li>
+            </li>
+            <li class="nav-item">
+                <a class="btn  btn btn-sm"
+                   href="/login/logout"
+                   role="button">로그아웃</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<br/>
+<br/>
+<!--<header class="masthead text-center text-white d-flex">-->
+<div class="container my-auto">
+    <div>
+        <div class="col-lg-7 mx-auto">
+            <p class="text-dark mb-2">업로드가 완료된 파일, 완료된 계약서만 검사 가능합니다.</p>
+            <form action="/validate/search" method="get">
+                <div class="input-group stylish-input-group w-50-align-center">
+                    <select class="custom-select-lg" name="type">
+                        <option selected>파일 종류</option>
+                        <option value="contract">계약서</option>
+                        <option value="file">일반 파일</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <input type="text" class="form-control w-25" placeholder="파일의 번호를 입력하세요" name="id">
+                    <button type="submit" class="btn btn-secondary btn-lg">
+                        검색
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<!--</header>-->
+
+<table class="table table-striped" style="text-align: center; border:1px solid #dddddd"
+       th:if="${contract.getId()}!=null">
+    <thead>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;">계약서 번호</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+        <th style="background-color: #eeeeee; text-align: center;">상태</th>
+        <th style="background-color: #eeeeee; text-align: center;">검사</th>
+    </tr>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getId()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getUser().getUserName()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${contract.getCreatedAt()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;"
+            th:text="${contract.getContractStatus().getStatus()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;">
+            <button class="btn btn-primary pull-right-align-center" th:onclick="'checkContract(\''+${contract.getId()}+'\');'">검사하기</button>
+        </th>
+    </tr>
+    </thead>
+</table>
+<table class="table table-striped" style="text-align: center; border:1px solid #dddddd" th:if="${board.getId()}!=null">
+    <thead>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;">번호</th>
+        <th style="background-color: #eeeeee; text-align: center;">문서 제목</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
+        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
+        <th style="background-color: #eeeeee; text-align: center;">검사</th>
+    </tr>
+    <tr>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getId()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getTitle()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getUser().getUserName()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;" th:text="${board.getCreatedAt()}"></th>
+        <th style="background-color: #eeeeee; text-align: center;">
+            <button class="btn btn-primary pull-right-align-center" th:onclick="'checkFile(\''+${board.getId()}+'\');'">검사하기</button>
+        </th>
+    </tr>
+    </thead>
+</table>
+<script>
+    function checkFile(id) {
+        var url = "/checkFile.html";
+        var options = "width=500 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;";
+        window.open(url + "?id="+id, "new", options);
+    }
+    function checkContract(id) {
+        var url = "/checkContract.html";
+        var options = "width=500 ,height=360, resizable=no,scrollbars=no, status=no,location=no,directories=no;";
+        window.open(url + "?id="+id, "new", options);
+    }
+</script>
+</body>
+</html>

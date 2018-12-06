@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function init() {
+            var path = location.href.split("?");
+            var temp = path[1].split("=");
+            var data = temp[1].split("&");
+            document.forms["myForm"]["id"].value = data[0];
+        }
+
+        function check() {
+            if (document.myForm.file.value == "" || document.myForm.file.value == null) {
+                window.alert("파일을 선택해주세요.");
+                return false;
+            }
+            document.myForm.action="/validate/check";
+            document.getElementById('myForm').onsubmit;
+        }
+    </script>
+</head>
+<body onload="init()">
+<form id="myForm" name="myForm"  method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id"/>
+    비교할 파일을 선택해주세요 : <input type="file" name="file"/>
+    <input type="hidden" name="type" value="contract"/>
+    <button onclick="check()">검증하기</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,13 @@
+jar{
+    baseName='front'
+    version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+    compile(project(':common'))
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf'){
+        exclude module: "logback-classic"
+    }
+
+}
